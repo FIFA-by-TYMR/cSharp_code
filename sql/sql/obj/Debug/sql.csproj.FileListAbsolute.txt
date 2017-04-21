@@ -1,0 +1,5 @@
+c:\users\jean-pierre\documents\visual studio 2015\Projects\sql\sql\bin\Debug\sql.exe.config
+C:\Users\Remco Balemans\Desktop\sql\sql\bin\Debug\sql.exe.config
+C:\Users\Remco Balemans\Desktop\sql\sql\obj\Debug\sql.csprojResolveAssemblyReference.cache
+C:\Users\Remco Balemans\Desktop\sql\sql\obj\Debug\sql.Properties.Resources.resources
+C:\Users\Remco Balemans\Desktop\sql\sql\obj\Debug\sql.csproj.GenerateResource.Cache
