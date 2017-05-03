@@ -3,3 +3,7 @@ C:\Users\Remco Balemans\Desktop\sql\sql\bin\Debug\sql.exe.config
 C:\Users\Remco Balemans\Desktop\sql\sql\obj\Debug\sql.csprojResolveAssemblyReference.cache
 C:\Users\Remco Balemans\Desktop\sql\sql\obj\Debug\sql.Properties.Resources.resources
 C:\Users\Remco Balemans\Desktop\sql\sql\obj\Debug\sql.csproj.GenerateResource.Cache
+D:\temp\c#\sql\sql\bin\Debug\sql.exe.config
+D:\temp\c#\sql\sql\obj\Debug\sql.csprojResolveAssemblyReference.cache
+D:\temp\c#\sql\sql\obj\Debug\sql.Properties.Resources.resources
+D:\temp\c#\sql\sql\obj\Debug\sql.csproj.GenerateResource.Cache

@@ -69,8 +69,17 @@ namespace ProjectFifaV2
         {
             if (!(txtPath.Text == null))
             {
+                string insert = "BULK INSERT TblTeams" +
+               " FROM '"+txtPath.Text+"'" +
+                "WITH" +
+                "(" +
+                   " FIRSTROW = 2," +
+                   " FIELDTERMINATOR = ',', " +
+                   " ROWTERMINATOR = '\n', " +
+                   " TABLOCK" +
+                ")";
                 dbh.OpenConnectionToDB();
-
+                ExecuteSQL(insert);
                 dbh.CloseConnectionToDB();
             }
             else

@@ -57,7 +57,7 @@ namespace ProjectFifaV2
         {
             bool hasPassed;
             //This is the deadline for filling in the predictions
-            DateTime deadline = new DateTime(2014, 06, 12);
+            DateTime deadline = new DateTime(2019, 06, 12);
             DateTime curTime = DateTime.Now;
             int result = DateTime.Compare(deadline, curTime);
 
@@ -147,6 +147,16 @@ namespace ProjectFifaV2
         internal void GetUsername(string un)
         {
             userName = un;
+        }
+
+        private void btnEditPrediction_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pnlPredCard_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
