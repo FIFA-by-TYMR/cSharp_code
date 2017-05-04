@@ -80,5 +80,22 @@ namespace ProjectFifaV2
         {
             return con;
         }
+        public void Execute(string query)
+        {
+            SqlCommand queryExecute = new SqlCommand(query, con);
+
+            try
+            {
+                OpenConnectionToDB();
+                int result = queryExecute.ExecuteNonQuery();
+                MessageBox.Show("Success saving to database");
+                CloseConnectionToDB();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+                CloseConnectionToDB();
+            }
+        }
     }
 }

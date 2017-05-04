@@ -39,6 +39,7 @@
             this.clmAwayTeamScore = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmAwayTeam = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlPredCard = new System.Windows.Forms.Panel();
+            this.unLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnEditPrediction
@@ -135,11 +136,21 @@
             this.pnlPredCard.TabIndex = 8;
             this.pnlPredCard.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlPredCard_Paint);
             // 
+            // unLbl
+            // 
+            this.unLbl.AutoSize = true;
+            this.unLbl.Location = new System.Drawing.Point(394, 206);
+            this.unLbl.Name = "unLbl";
+            this.unLbl.Size = new System.Drawing.Size(33, 13);
+            this.unLbl.TabIndex = 9;
+            this.unLbl.Text = "unLbl";
+            // 
             // frmPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 730);
+            this.Controls.Add(this.unLbl);
             this.Controls.Add(this.pnlPredCard);
             this.Controls.Add(this.lvOverview);
             this.Controls.Add(this.btnShowRanking);
@@ -168,5 +179,6 @@
         private System.Windows.Forms.ColumnHeader clmAwayTeamScore;
         private System.Windows.Forms.ColumnHeader clmAwayTeam;
         private System.Windows.Forms.Panel pnlPredCard;
+        private System.Windows.Forms.Label unLbl;
     }
 }

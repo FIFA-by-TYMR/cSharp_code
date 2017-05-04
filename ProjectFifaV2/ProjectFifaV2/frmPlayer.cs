@@ -11,17 +11,26 @@ namespace ProjectFifaV2
 {
     public partial class frmPlayer : Form
     {
+        const int lengthInnerArray = 2;
+        const int lengthOutterArray = 2;
+
         private Form frmRanking;
         private DatabaseHandler dbh;
         private string userName;
-
+        private DataTable tblUsers;
+        private DataRow rowUser;
+ 
         List<TextBox> txtBoxList;
+        TextBox[,] rows = new TextBox[2, lengthInnerArray];
+        List<TextBox>[,] newRows = new List<TextBox>[2, 2];
+
 
         public frmPlayer(Form frm, string un)
         {
             this.ControlBox = false;
             frmRanking = frm;
             dbh = new DatabaseHandler();
+            this.unLbl.Text = un;
 
             InitializeComponent();
             if (DisableEditButton())
@@ -97,8 +106,8 @@ namespace ProjectFifaV2
 
         private void ShowScoreCard()
         {
-            dbh.TestConnection();
-            dbh.OpenConnectionToDB();
+            //dbh.TestConnection();
+            //dbh.OpenConnectionToDB();
 
             DataTable hometable = dbh.FillDT("SELECT tblTeams.TeamName FROM tblGames INNER JOIN tblTeams ON tblGames.HomeTeam = tblTeams.Team_ID");
             DataTable awayTable = dbh.FillDT("SELECT tblTeams.TeamName FROM tblGames INNER JOIN tblTeams ON tblGames.AwayTeam = tblTeams.Team_ID");
@@ -109,7 +118,7 @@ namespace ProjectFifaV2
             {
                 DataRow dataRowHome = hometable.Rows[i];
                 DataRow dataRowAway = awayTable.Rows[i];
-                
+
                 Label lblHomeTeam = new Label();
                 Label lblAwayTeam = new Label();
                 TextBox txtHomePred = new TextBox();
@@ -123,10 +132,12 @@ namespace ProjectFifaV2
                 txtHomePred.Text = "0";
                 txtHomePred.Location = new Point(lblHomeTeam.Width, lblHomeTeam.Top - 3);
                 txtHomePred.Width = 40;
+                rows[i, 0] = txtHomePred;
 
                 txtAwayPred.Text = "0";
                 txtAwayPred.Location = new Point(txtHomePred.Width + lblHomeTeam.Width, txtHomePred.Top);
                 txtAwayPred.Width = 40;
+                rows[i, 1] = txtAwayPred;
 
                 lblAwayTeam.Text = dataRowAway["TeamName"].ToString();
                 lblAwayTeam.Location = new Point(txtHomePred.Width + lblHomeTeam.Width + txtAwayPred.Width, txtHomePred.Top + 3);
@@ -151,12 +162,17 @@ namespace ProjectFifaV2
 
         private void btnEditPrediction_Click(object sender, EventArgs e)
         {
+
             DataTable tblUsers = dbh.FillDT("select * from tblUsers WHERE (Username='" + unLbl.Text + "')");
             DataRow rowUser = tblUsers.Rows[0];
+            int j = 0;
             string home = "";
             string away = "";
+            string sqlex = "UPDATE tblPredictions SET PredictedHomeScore = " + home + ", PredictedAwayScore = " + away + " WHERE(User_id = " +
 
-            for (int j = 0; j < lengthOutterArray; j++)
+                        rowUser["id"] + " AND Game_id=" + Convert.ToInt32(j) + ")";
+
+            for (; j < lengthOutterArray; j++)
             {
                 for (int k = 0; k < lengthInnerArray; k++)
                 {
@@ -166,6 +182,13 @@ namespace ProjectFifaV2
                     }
                     else
                     {
+                        away = rows[j, k].Text;
+                    }
+                }
+                dbh.Execute(sqlex);
+            }
+
+        }
 
         private void pnlPredCard_Paint(object sender, PaintEventArgs e)
         {
