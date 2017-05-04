@@ -136,7 +136,7 @@ namespace ProjectFifaV2
                 pnlPredCard.Controls.Add(txtHomePred);
                 pnlPredCard.Controls.Add(txtAwayPred);
                 pnlPredCard.Controls.Add(lblAwayTeam);
-                //ListViewItem lstItem = new ListViewItem(dataRowHome["TeamName"].ToString());
+                ListViewItem lstItem = new ListViewItem(dataRowHome["TeamName"].ToString());
                 //lstItem.SubItems.Add(dataRowHome["HomeTeamScore"].ToString());
                 //lstItem.SubItems.Add(dataRowAway["AwayTeamScore"].ToString());
                 //lstItem.SubItems.Add(dataRowAway["TeamName"].ToString());
