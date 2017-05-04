@@ -136,7 +136,7 @@ namespace ProjectFifaV2
                 pnlPredCard.Controls.Add(txtHomePred);
                 pnlPredCard.Controls.Add(txtAwayPred);
                 pnlPredCard.Controls.Add(lblAwayTeam);
-                ListViewItem lstItem = new ListViewItem(dataRowHome["TeamName"].ToString());
+                //ListViewItem lstItem = new ListViewItem(dataRowHome["TeamName"].ToString());
                 //lstItem.SubItems.Add(dataRowHome["HomeTeamScore"].ToString());
                 //lstItem.SubItems.Add(dataRowAway["AwayTeamScore"].ToString());
                 //lstItem.SubItems.Add(dataRowAway["TeamName"].ToString());
@@ -151,8 +151,21 @@ namespace ProjectFifaV2
 
         private void btnEditPrediction_Click(object sender, EventArgs e)
         {
+            DataTable tblUsers = dbh.FillDT("select * from tblUsers WHERE (Username='" + unLbl.Text + "')");
+            DataRow rowUser = tblUsers.Rows[0];
+            string home = "";
+            string away = "";
 
-        }
+            for (int j = 0; j < lengthOutterArray; j++)
+            {
+                for (int k = 0; k < lengthInnerArray; k++)
+                {
+                    if (k == 0)
+                    {
+                        home = rows[j, k].Text;
+                    }
+                    else
+                    {
 
         private void pnlPredCard_Paint(object sender, PaintEventArgs e)
         {
