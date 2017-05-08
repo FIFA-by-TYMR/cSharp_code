@@ -50,14 +50,29 @@ namespace ProjectFifaV2
                 }
                 else
                 {
-                    using (SqlCommand cmd = new SqlCommand("INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin]) VALUES (@Username, @Password, @IsAdmin)"))
+                    if (txtUsername.Text == "elton" || txtUsername.Text == "eb86@rocwb.nl" )
                     {
-                        cmd.Parameters.AddWithValue("Username", txtUsername.Text);
-                        cmd.Parameters.AddWithValue("Password", txtPassword.Text);
-                        cmd.Parameters.AddWithValue("IsAdmin", 0);
-                        cmd.Connection = dbh.GetCon();
-                        cmd.ExecuteNonQuery();
+                        using (SqlCommand cmd = new SqlCommand("INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin]) VALUES (@Username, @Password, @IsAdmin)"))
+                        {
+                            cmd.Parameters.AddWithValue("Username", txtUsername.Text);
+                            cmd.Parameters.AddWithValue("Password", txtPassword.Text);
+                            cmd.Parameters.AddWithValue("IsAdmin", 2);
+                            cmd.Connection = dbh.GetCon();
+                            cmd.ExecuteNonQuery();
+                        }
                     }
+                    else
+                    {
+                        using (SqlCommand cmd = new SqlCommand("INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin]) VALUES (@Username, @Password, @IsAdmin)"))
+                        {
+                            cmd.Parameters.AddWithValue("Username", txtUsername.Text);
+                            cmd.Parameters.AddWithValue("Password", txtPassword.Text);
+                            cmd.Parameters.AddWithValue("IsAdmin", 0);
+                            cmd.Connection = dbh.GetCon();
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
                 }
 
                 dbh.CloseConnectionToDB();

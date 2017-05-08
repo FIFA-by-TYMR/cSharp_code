@@ -75,6 +75,21 @@ namespace ProjectFifaV2
 
             return dt;
         }
+        public int DTInt(string query)
+        {
+            TestConnection();
+            OpenConnectionToDB();
+
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(query, GetCon());
+            DataTable dt = new DataTable();
+            SqlCommand cmd1 = new SqlCommand(query, con);
+            int ret = Convert.ToInt32(cmd1.ExecuteScalar());
+     
+
+            CloseConnectionToDB();
+
+            return ret;
+        }
 
         public SqlConnection GetCon()
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -11,27 +12,29 @@ namespace ProjectFifaV2
 {
     public partial class frmPlayer : Form
     {
+        internal DatabaseHandler dbh = new DatabaseHandler();
+     
         const int lengthInnerArray = 2;
         const int lengthOutterArray = 2;
 
         private Form frmRanking;
-        private DatabaseHandler dbh;
         private string userName;
         private DataTable tblUsers;
         private DataRow rowUser;
- 
+       
         List<TextBox> txtBoxList;
-        TextBox[,] rows = new TextBox[2, lengthInnerArray];
+        TextBox[,] rows;
         List<TextBox>[,] newRows = new List<TextBox>[2, 2];
 
 
         public frmPlayer(Form frm, string un)
         {
+            int amount = dbh.DTInt("SELECT COUNT(*) FROM TblGames ");
+             rows = new TextBox[amount, lengthInnerArray];
+
             this.ControlBox = false;
             frmRanking = frm;
             dbh = new DatabaseHandler();
-            this.unLbl.Text = un;
-
             InitializeComponent();
             if (DisableEditButton())
             {
@@ -39,7 +42,7 @@ namespace ProjectFifaV2
             }
             ShowResults();
             ShowScoreCard();
-            this.Text = "Welcome " + un;
+            this.Text = un;
         }
 
         private void btnLogOut_Click(object sender, EventArgs e)
@@ -65,21 +68,31 @@ namespace ProjectFifaV2
         private bool DisableEditButton()
         {
             bool hasPassed;
-            //This is the deadline for filling in the predictions
-            DateTime deadline = new DateTime(2019, 06, 12);
-            DateTime curTime = DateTime.Now;
-            int result = DateTime.Compare(deadline, curTime);
-
-            if (result < 0)
+            if (!iselton())
             {
-                hasPassed = true;
+                
+                //This is the deadline for filling in the predictions
+                DateTime deadline = new DateTime(2019, 06, 12);
+                DateTime curTime = DateTime.Now;
+                int result = DateTime.Compare(deadline, curTime);
+
+                if (result < 0)
+                {
+                    hasPassed = true;
+                }
+                else
+                {
+                    hasPassed = false;
+                }
+
+                return hasPassed;
             }
             else
             {
                 hasPassed = false;
+                return hasPassed;
             }
 
-            return hasPassed;
         }
 
         private void ShowResults()
@@ -163,7 +176,7 @@ namespace ProjectFifaV2
         private void btnEditPrediction_Click(object sender, EventArgs e)
         {
 
-            DataTable tblUsers = dbh.FillDT("select * from tblUsers WHERE (Username='" + unLbl.Text + "')");
+            DataTable tblUsers = dbh.FillDT("select * from tblUsers WHERE (Username='" + this.Text + "')");
             DataRow rowUser = tblUsers.Rows[0];
             int j = 0;
             string home = "";
@@ -188,6 +201,29 @@ namespace ProjectFifaV2
                 dbh.Execute(sqlex);
             }
 
+        }
+        private bool iselton()
+        {
+            dbh.TestConnection();
+            dbh.OpenConnectionToDB();
+            bool admin;
+            string userName = this.Text;
+
+            using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) from [tblUsers] WHERE Username = @Username AND IsAdmin = 2", dbh.GetCon()))
+            {
+                cmd.Parameters.AddWithValue("Username", userName);
+                admin = (int)cmd.ExecuteScalar() > 0;
+            }
+            dbh.CloseConnectionToDB();
+
+            if (admin)
+            {
+                return true;   
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void pnlPredCard_Paint(object sender, PaintEventArgs e)
