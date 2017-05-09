@@ -98,11 +98,14 @@ namespace ProjectFifaV2
         public void Execute(string query)
         {
             SqlCommand queryExecute = new SqlCommand(query, con);
+            MessageBox.Show(query);
+
 
             try
             {
                 OpenConnectionToDB();
-                int result = queryExecute.ExecuteNonQuery();
+                queryExecute.Prepare();
+                queryExecute.ExecuteReader();
                 MessageBox.Show("Success saving to database");
                 CloseConnectionToDB();
             }

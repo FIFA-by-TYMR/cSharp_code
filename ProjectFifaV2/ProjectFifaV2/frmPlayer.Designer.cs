@@ -147,6 +147,7 @@
             this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.btnClearPrediction);
             this.Controls.Add(this.btnEditPrediction);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmPlayer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PlayerName";

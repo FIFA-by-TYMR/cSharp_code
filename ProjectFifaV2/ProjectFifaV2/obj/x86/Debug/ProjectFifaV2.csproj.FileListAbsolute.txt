@@ -38,3 +38,17 @@ D:\temp\c#\ProjectFifaV2\ProjectFifaV2\bin\Debug\db.mdf
 D:\temp\c#\ProjectFifaV2\ProjectFifaV2\bin\Debug\db_log.ldf
 D:\temp\c#\ProjectFifaV2\ProjectFifaV2\bin\Debug\ProjectFifaV2.exe
 D:\temp\c#\ProjectFifaV2\ProjectFifaV2\bin\Debug\ProjectFifaV2.pdb
+C:\Users\Remco Balemans\Desktop\ProjectFifaV2\ProjectFifaV2\bin\Debug\ProjectFifaV2.exe.config
+C:\Users\Remco Balemans\Desktop\ProjectFifaV2\ProjectFifaV2\obj\x86\Debug\ProjectFifaV2.exe
+C:\Users\Remco Balemans\Desktop\ProjectFifaV2\ProjectFifaV2\obj\x86\Debug\ProjectFifaV2.pdb
+C:\Users\Remco Balemans\Desktop\ProjectFifaV2\ProjectFifaV2\bin\Debug\db.mdf
+C:\Users\Remco Balemans\Desktop\ProjectFifaV2\ProjectFifaV2\bin\Debug\db_log.ldf
+C:\Users\Remco Balemans\Desktop\ProjectFifaV2\ProjectFifaV2\bin\Debug\ProjectFifaV2.exe
+C:\Users\Remco Balemans\Desktop\ProjectFifaV2\ProjectFifaV2\bin\Debug\ProjectFifaV2.pdb
+C:\Users\Remco Balemans\Desktop\ProjectFifaV2\ProjectFifaV2\obj\x86\Debug\ProjectFifaV2.csprojResolveAssemblyReference.cache
+C:\Users\Remco Balemans\Desktop\ProjectFifaV2\ProjectFifaV2\obj\x86\Debug\ProjectFifaV2.frmAdmin.resources
+C:\Users\Remco Balemans\Desktop\ProjectFifaV2\ProjectFifaV2\obj\x86\Debug\ProjectFifaV2.frmLogin.resources
+C:\Users\Remco Balemans\Desktop\ProjectFifaV2\ProjectFifaV2\obj\x86\Debug\ProjectFifaV2.frmPlayer.resources
+C:\Users\Remco Balemans\Desktop\ProjectFifaV2\ProjectFifaV2\obj\x86\Debug\ProjectFifaV2.frmRanking.resources
+C:\Users\Remco Balemans\Desktop\ProjectFifaV2\ProjectFifaV2\obj\x86\Debug\ProjectFifaV2.Properties.Resources.resources
+C:\Users\Remco Balemans\Desktop\ProjectFifaV2\ProjectFifaV2\obj\x86\Debug\ProjectFifaV2.csproj.GenerateResource.Cache
