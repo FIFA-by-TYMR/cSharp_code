@@ -61,30 +61,7 @@ namespace ProjectFifaV2
             if (result.Equals(DialogResult.OK))
             {
                 // Clear predections
-                DataTable tblUsers = dbh.FillDT("select * from tblUsers WHERE (Username='" + this.Text + "')");
-                DataRow rowUser = tblUsers.Rows[0];
-                int j = 0;
-                string home = "0";
-                string away = "0";
-                string sqlex = "DELETE FROM tblPredictions WHERE user_id =  '"+user+"' ";
-
-                for (; j < lengthOutterArray; j++)
-                {
-                    for (int k = 0; k < lengthInnerArray; k++)
-                    {
-                        if (k == 0)
-                        {
-                            home = rows[j, k].Text;
-                        }
-                        else
-                        {
-                            away = rows[j, k].Text;
-                        }
-                    }
-                    dbh.Execute(sqlex);
-                }
                 // Update DB
-
             }
         }
 
@@ -199,14 +176,14 @@ namespace ProjectFifaV2
         private void btnEditPrediction_Click(object sender, EventArgs e)
         {
 
-            DataTable tblUsers = dbh.FillDT("select * from tblUsers WHERE (Username='test')");
+            DataTable tblUsers = dbh.FillDT("select * from tblUsers WHERE (Username='" + this.Text + "')");
             DataRow rowUser = tblUsers.Rows[0];
             int j = 0;
             string home = "";
             string away = "";
-            //string sqlex = "UPDATE tblPredictions SET PredictedHomeScore = " + home + ", PredictedAwayScore = " + away + " WHERE(User_id = " + rowUser["id"] + " AND Game_id=" + Convert.ToInt32(j) + ")";
-            string sqlex = "insert into  tblPredictions (PredictedHomeScore, PredictedAwayScore, User_id, Game_id  ) values('" + home + "','" + away + "','" + rowUser[0] + "','" + Convert.ToInt32(j) + "')";
+            string sqlex = "UPDATE tblPredictions SET PredictedHomeScore = " + home + ", PredictedAwayScore = " + away + " WHERE(User_id = " +
 
+                        rowUser["id"] + " AND Game_id=" + Convert.ToInt32(j) + ")";
 
             for (; j < lengthOutterArray; j++)
             {
