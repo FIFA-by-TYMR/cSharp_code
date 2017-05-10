@@ -61,6 +61,31 @@ namespace ProjectFifaV2
             if (result.Equals(DialogResult.OK))
             {
                 // Clear predections
+<<<<<<< HEAD
+=======
+                DataTable tblUsers = dbh.FillDT("select * from tblUsers WHERE (Username='" + this.Text + "')");
+                DataRow rowUser = tblUsers.Rows[0];
+                int j = 0;
+                string home = "0";
+                string away = "0";
+                string sqlex = "DELETE FROM tblPredictions WHERE user_id =  '"++"' ";
+
+                for (; j < lengthOutterArray; j++)
+                {
+                    for (int k = 0; k < lengthInnerArray; k++)
+                    {
+                        if (k == 0)
+                        {
+                            home = rows[j, k].Text;
+                        }
+                        else
+                        {
+                            away = rows[j, k].Text;
+                        }
+                    }
+                    dbh.Execute(sqlex);
+                }
+>>>>>>> ec7417eb5aa67c9dd87731ca29e1a0ec9a1a6b1d
                 // Update DB
             }
         }
