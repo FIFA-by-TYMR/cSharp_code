@@ -66,7 +66,7 @@ namespace ProjectFifaV2
                 int j = 0;
                 string home = "0";
                 string away = "0";
-                string sqlex = "DELETE FROM tblPredictions WHERE user_id =  '"+user+"' ";
+                string sqlex = "DELETE FROM tblPredictions WHERE user_id =  '"++"' ";
 
                 for (; j < lengthOutterArray; j++)
                 {
