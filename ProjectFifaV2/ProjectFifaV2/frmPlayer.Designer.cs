@@ -104,6 +104,8 @@
             this.lvOverview.TabIndex = 7;
             this.lvOverview.UseCompatibleStateImageBehavior = false;
             this.lvOverview.View = System.Windows.Forms.View.Details;
+            this.lvOverview.SelectedIndexChanged += new System.EventHandler(this.lvOverview_SelectedIndexChanged);
+            this.lvOverview.Click += new System.EventHandler(this.lvOverview_Click);
             // 
             // clmHomeTeam
             // 

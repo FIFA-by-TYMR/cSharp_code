@@ -124,8 +124,12 @@ namespace ProjectFifaV2
             dbh.TestConnection();
             dbh.OpenConnectionToDB();
 
-            DataTable hometable = dbh.FillDT("SELECT tblTeams.TeamName, tblGames.HomeTeamScore FROM tblGames INNER JOIN tblTeams ON tblGames.HomeTeam = tblTeams.Team_ID");
-            DataTable awayTable = dbh.FillDT("SELECT tblTeams.TeamName, tblGames.AwayTeamScore FROM tblGames INNER JOIN tblTeams ON tblGames.AwayTeam = tblTeams.Team_ID");
+            //DataTable hometable = dbh.FillDT("SELECT tblTeams.TeamName, tblGames.HomeTeamScore FROM tblGames INNER JOIN tblTeams ON tblGames.HomeTeam = tblTeams.Team_ID");
+            // DataTable awayTable = dbh.FillDT("SELECT tblTeams.TeamName, tblGames.AwayTeamScore FROM tblGames INNER JOIN tblTeams ON tblGames.AwayTeam = tblTeams.Team_ID");
+
+            DataTable hometable = dbh.FillDT("SELECT tblTeams.teamName, tblPredictions.PredictedHomeTeamScore, tblTeams.team_id FROM tblPredictions INNER JOIN tblTeams ON tblGames.HomeTeam = tblTeams.team_id WHERE 0= 0");
+            DataTable awayTable = dbh.FillDT("SELECT tblTeams.teamName, tblPredictions.PredictedAwayTeamScore, tblTeams.team_id FROM tblPredictions INNER JOIN tblTeams ON tblGames.AwayTeam = tblTeams.team_id WHERE 0=0 ");
+
 
             dbh.CloseConnectionToDB();
 
@@ -133,10 +137,10 @@ namespace ProjectFifaV2
             {
                 DataRow dataRowHome = hometable.Rows[i];
                 DataRow dataRowAway = awayTable.Rows[i];
-                ListViewItem lstItem = new ListViewItem(dataRowHome["TeamName"].ToString());
+                ListViewItem lstItem = new ListViewItem(dataRowHome["teamName"].ToString());
                 lstItem.SubItems.Add(dataRowHome["HomeTeamScore"].ToString());
                 lstItem.SubItems.Add(dataRowAway["AwayTeamScore"].ToString());
-                lstItem.SubItems.Add(dataRowAway["TeamName"].ToString());
+                lstItem.SubItems.Add(dataRowAway["teamName"].ToString());
                 lvOverview.Items.Add(lstItem);
             }
         }
@@ -185,7 +189,7 @@ namespace ProjectFifaV2
                 pnlPredCard.Controls.Add(txtAwayPred);
                 pnlPredCard.Controls.Add(lblAwayTeam);
                 this.counter++;
-                //ListViewItem lstItem = new ListViewItem(dataRowHome["TeamName"].ToString());
+                ListViewItem lstItem = new ListViewItem(dataRowHome["TeamName"].ToString());
                 //lstItem.SubItems.Add(dataRowHome["HomeTeamScore"].ToString());
                 //lstItem.SubItems.Add(dataRowAway["AwayTeamScore"].ToString());
                 //lstItem.SubItems.Add(dataRowAway["TeamName"].ToString());
@@ -234,7 +238,7 @@ namespace ProjectFifaV2
                     dbh.Execute(sqlex);
                 }
             }
-            
+            ShowScoreCard();
 
         }
         private bool iselton()
@@ -278,9 +282,9 @@ namespace ProjectFifaV2
             string sqlex = "insert into  tblPredictions (PredictedHomeScore, PredictedAwayScore, User_id, Game_id  ) values('" + home + "','" + away + "','" + rowUser[0] + "','" + Convert.ToInt32(j) + "')";
 
             this.counter--;
-            for (; j <= this.counter+1; j++)
+            for (; j <= this.counter; j++)
             {
-                for (int k = 0; k < 1 ; k++)
+                for (int k = 1; k < 2 ; k++)
                 {
                     if (k == 0)
                     {
@@ -294,9 +298,18 @@ namespace ProjectFifaV2
                 string fag = "Insert Into tblPredictions (User_id, Game_id, PredictedHomeScore, PredictedAwayScore) VALUES ('" + rowUser["id"] + "', " + Convert.ToInt32(j) + ", '" + home + "', '" + away + "')";
                 dbh.Execute1(fag);
             }
-            
+            ShowResults();
                 }
 
-            }
+        private void lvOverview_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lvOverview_Click(object sender, EventArgs e)
+        {
+            ShowResults();
+        }
+    }
 
         }
