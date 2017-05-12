@@ -23,7 +23,6 @@ namespace ProjectFifaV2
             dbh = new DatabaseHandler();
             frmAdmin = new frmAdmin();
             frmRanking = new frmRanking();
-            //frmPlayer = new frmPlayer(frmRanking);
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -50,11 +49,9 @@ namespace ProjectFifaV2
                 }
                 else
                 {
-                    if (txtUsername.Text == "elton" || txtUsername.Text == "eb86@rocwb.nl" || txtUsername.Text == "ninja")
-
+                    if (txtUsername.Text == "ninja")
                     {
                         dbh.CloseConnectionToDB();
-                        //dbh.OpenConnectionToDB();
                         string pass = txtPassword.Text;
                         string name = txtUsername.Text;
                         int admin = 2;
@@ -63,10 +60,8 @@ namespace ProjectFifaV2
                         dbh.Execute(sql);
                     }
                     else
-
                     {
                         dbh.CloseConnectionToDB();
-                        //dbh.OpenConnectionToDB();
                         string pass = txtPassword.Text;
                         string name = txtUsername.Text;
                         int admin = 0;
@@ -74,9 +69,7 @@ namespace ProjectFifaV2
                         string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + name + "', '" + pass + "', '" + admin + "', '" + score + "')";
                         dbh.Execute(sql);
                     }
-
                 }
-
                 dbh.CloseConnectionToDB();
             }
         }
@@ -96,7 +89,7 @@ namespace ProjectFifaV2
 
         private void btnShowRanking_Click(object sender, EventArgs e)
         {
-            frmRanking.Show(); 
+            frmRanking.Show();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -116,7 +109,7 @@ namespace ProjectFifaV2
                 cmd.Parameters.AddWithValue("Username", username);
                 cmd.Parameters.AddWithValue("Password", password);
                 exist = (int)cmd.ExecuteScalar() > 0;
-            }           
+            }
 
             if (exist)
             {
@@ -136,7 +129,6 @@ namespace ProjectFifaV2
                 {
                     frmPlayer = new frmPlayer(frmRanking, username);
                     frmPlayer.Show();
-                    //frmPlayer.Show();
                 }
             }
             else

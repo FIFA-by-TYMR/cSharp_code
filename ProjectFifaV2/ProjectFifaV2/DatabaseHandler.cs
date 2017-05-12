@@ -14,10 +14,6 @@ namespace ProjectFifaV2
 
         public DatabaseHandler()
         {
-            //SqlCeEngine engine = new SqlCeEngine(@"Data Source=.\DB.sdf");
-            //engine.Upgrade(@"Data Source=.\DB2.sdf");
-
-
             string Path = Environment.CurrentDirectory;
             string[] appPath = Path.Split(new string[] { "bin" }, StringSplitOptions.None);
             AppDomain.CurrentDomain.SetData("DataDirectory", appPath[0]);
@@ -85,7 +81,6 @@ namespace ProjectFifaV2
             SqlCommand cmd1 = new SqlCommand(query, con);
             int ret = Convert.ToInt32(cmd1.ExecuteScalar());
 
-
             CloseConnectionToDB();
 
             return ret;
@@ -99,7 +94,6 @@ namespace ProjectFifaV2
         {
             SqlCommand queryExecute = new SqlCommand(query, con);
             MessageBox.Show(query);
-
 
             try
             {
@@ -115,25 +109,7 @@ namespace ProjectFifaV2
                 CloseConnectionToDB();
             }
         }
-        public void Execute1(string query)
-        {
-            SqlCommand queryExecute = new SqlCommand(query, con);
 
-
-            try
-            {
-                OpenConnectionToDB();
-                queryExecute.Prepare();
-                queryExecute.ExecuteReader();
-
-                CloseConnectionToDB();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Error");
-                CloseConnectionToDB();
-            }
-        }
         public string ExecuteString(string query)
         {
             SqlCommand queryExecute = new SqlCommand(query, con);
@@ -153,9 +129,8 @@ namespace ProjectFifaV2
                 CloseConnectionToDB();
                 return "failed";
             }
-
-
         }
+
         public int ExecuteInt(string query)
         {
             SqlCommand queryExecute = new SqlCommand(query, con);
