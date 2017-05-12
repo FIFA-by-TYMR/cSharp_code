@@ -28,7 +28,7 @@ namespace ProjectFifaV2
         public void TestConnection()
         {
             bool open = false;
-            
+
             try
             {
                 con.Open();
@@ -70,7 +70,7 @@ namespace ProjectFifaV2
             SqlDataAdapter dataAdapter = new SqlDataAdapter(query, GetCon());
             DataTable dt = new DataTable();
             dataAdapter.Fill(dt);
-            
+
             CloseConnectionToDB();
 
             return dt;
@@ -84,7 +84,7 @@ namespace ProjectFifaV2
             DataTable dt = new DataTable();
             SqlCommand cmd1 = new SqlCommand(query, con);
             int ret = Convert.ToInt32(cmd1.ExecuteScalar());
-     
+
 
             CloseConnectionToDB();
 
@@ -174,8 +174,6 @@ namespace ProjectFifaV2
                 CloseConnectionToDB();
                 return 0;
             }
-
-
         }
     }
 }
