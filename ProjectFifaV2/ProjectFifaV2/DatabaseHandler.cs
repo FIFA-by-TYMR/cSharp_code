@@ -14,10 +14,6 @@ namespace ProjectFifaV2
 
         public DatabaseHandler()
         {
-            //SqlCeEngine engine = new SqlCeEngine(@"Data Source=.\DB.sdf");
-            //engine.Upgrade(@"Data Source=.\DB2.sdf");
-
-
             string Path = Environment.CurrentDirectory;
             string[] appPath = Path.Split(new string[] { "bin" }, StringSplitOptions.None);
             AppDomain.CurrentDomain.SetData("DataDirectory", appPath[0]);
@@ -28,7 +24,7 @@ namespace ProjectFifaV2
         public void TestConnection()
         {
             bool open = false;
-            
+
             try
             {
                 con.Open();
@@ -70,7 +66,7 @@ namespace ProjectFifaV2
             SqlDataAdapter dataAdapter = new SqlDataAdapter(query, GetCon());
             DataTable dt = new DataTable();
             dataAdapter.Fill(dt);
-            
+
             CloseConnectionToDB();
 
             return dt;
@@ -84,7 +80,6 @@ namespace ProjectFifaV2
             DataTable dt = new DataTable();
             SqlCommand cmd1 = new SqlCommand(query, con);
             int ret = Convert.ToInt32(cmd1.ExecuteScalar());
-     
 
             CloseConnectionToDB();
 
@@ -112,6 +107,47 @@ namespace ProjectFifaV2
             {
                 MessageBox.Show(ex.ToString(), "Error");
                 CloseConnectionToDB();
+            }
+        }
+
+        public string ExecuteString(string query)
+        {
+            SqlCommand queryExecute = new SqlCommand(query, con);
+            MessageBox.Show(query);
+
+            try
+            {
+                OpenConnectionToDB();
+                SqlDataReader dr = queryExecute.ExecuteReader();
+                string treatment = dr[0].ToString();
+                return treatment;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+                CloseConnectionToDB();
+                return "failed";
+            }
+        }
+
+        public int ExecuteInt(string query)
+        {
+            SqlCommand queryExecute = new SqlCommand(query, con);
+            MessageBox.Show(query);
+
+            try
+            {
+                OpenConnectionToDB();
+
+                int amountOfRows = queryExecute.ExecuteNonQuery();
+                return amountOfRows;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+                CloseConnectionToDB();
+                return 0;
             }
         }
     }

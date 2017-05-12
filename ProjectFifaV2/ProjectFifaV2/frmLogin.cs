@@ -23,7 +23,6 @@ namespace ProjectFifaV2
             dbh = new DatabaseHandler();
             frmAdmin = new frmAdmin();
             frmRanking = new frmRanking();
-            //frmPlayer = new frmPlayer(frmRanking);
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -52,25 +51,24 @@ namespace ProjectFifaV2
                 {
                     if (txtUsername.Text == "ninja")
                     {
-                            dbh.CloseConnectionToDB();
-                            string pass = txtPassword.Text;
-                            string name = txtUsername.Text;
-                            int admin = 2;
-                            int score = 0;
-                            string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + name + "', '" + pass + "', '" + admin + "', '" + score + "')";
-                            dbh.Execute(sql);
+                        dbh.CloseConnectionToDB();
+                        string pass = txtPassword.Text;
+                        string name = txtUsername.Text;
+                        int admin = 2;
+                        int score = 0;
+                        string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + name + "', '" + pass + "', '" + admin + "', '" + score + "')";
+                        dbh.Execute(sql);
                     }
                     else
                     {
-                            dbh.CloseConnectionToDB();
-                            string pass = txtPassword.Text;
-                            string name = txtUsername.Text;
-                            int admin = 0;
-                            int score = 0;
-                            string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + name + "', '" + pass + "', '" + admin + "', '" + score + "')";
-                            dbh.Execute(sql);
+                        dbh.CloseConnectionToDB();
+                        string pass = txtPassword.Text;
+                        string name = txtUsername.Text;
+                        int admin = 0;
+                        int score = 0;
+                        string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + name + "', '" + pass + "', '" + admin + "', '" + score + "')";
+                        dbh.Execute(sql);
                     }
-
                 }
                 dbh.CloseConnectionToDB();
             }
@@ -91,7 +89,7 @@ namespace ProjectFifaV2
 
         private void btnShowRanking_Click(object sender, EventArgs e)
         {
-            frmRanking.Show(); 
+            frmRanking.Show();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -111,7 +109,7 @@ namespace ProjectFifaV2
                 cmd.Parameters.AddWithValue("Username", username);
                 cmd.Parameters.AddWithValue("Password", password);
                 exist = (int)cmd.ExecuteScalar() > 0;
-            }           
+            }
 
             if (exist)
             {
@@ -131,7 +129,6 @@ namespace ProjectFifaV2
                 {
                     frmPlayer = new frmPlayer(frmRanking, username);
                     frmPlayer.Show();
-                    //frmPlayer.Show();
                 }
             }
             else
@@ -139,11 +136,6 @@ namespace ProjectFifaV2
                 dbh.CloseConnectionToDB();
                 MessageHandler.ShowMessage("Wrong username and/or password.");
             }
-        }
-
-        private void frmLogin_Load(object sender, EventArgs e)
-        {
-            dbh.CloseConnectionToDB();
         }
     }
 }

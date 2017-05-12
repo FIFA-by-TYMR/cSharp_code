@@ -118,7 +118,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(364, 222);
-            this.ControlBox = false;
             this.Controls.Add(this.btnShowRanking);
             this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.btnExit);
@@ -133,7 +132,6 @@
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Please login or register";
-            this.Load += new System.EventHandler(this.frmLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

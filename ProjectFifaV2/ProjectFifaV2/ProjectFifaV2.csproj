@@ -65,7 +65,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CsvToTable.cs" />
     <Compile Include="DatabaseHandler.cs" />
     <Compile Include="dbDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
