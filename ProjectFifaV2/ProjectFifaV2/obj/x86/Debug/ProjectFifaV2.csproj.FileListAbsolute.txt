@@ -61,3 +61,8 @@ C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj
 C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj\x86\Debug\ProjectFifaV2.csproj.GenerateResource.Cache
 C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj\x86\Debug\ProjectFifaV2.exe
 C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj\x86\Debug\ProjectFifaV2.pdb
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\bin\Debug\db.mdf
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\bin\Debug\db_log.ldf
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\bin\Debug\ProjectFifaV2.exe.config
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\bin\Debug\ProjectFifaV2.exe
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\bin\Debug\ProjectFifaV2.pdb

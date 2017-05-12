@@ -50,31 +50,28 @@ namespace ProjectFifaV2
                 }
                 else
                 {
-                    if (txtUsername.Text == "elton" || txtUsername.Text == "eb86@rocwb.nl" )
+                    if (txtUsername.Text == "ninja")
                     {
-                        using (SqlCommand cmd = new SqlCommand("INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin]) VALUES (@Username, @Password, @IsAdmin)"))
-                        {
-                            cmd.Parameters.AddWithValue("Username", txtUsername.Text);
-                            cmd.Parameters.AddWithValue("Password", txtPassword.Text);
-                            cmd.Parameters.AddWithValue("IsAdmin", 2);
-                            cmd.Connection = dbh.GetCon();
-                            cmd.ExecuteNonQuery();
-                        }
+                            dbh.CloseConnectionToDB();
+                            string pass = txtPassword.Text;
+                            string name = txtUsername.Text;
+                            int admin = 2;
+                            int score = 0;
+                            string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + name + "', '" + pass + "', '" + admin + "', '" + score + "')";
+                            dbh.Execute(sql);
                     }
                     else
                     {
-                        using (SqlCommand cmd = new SqlCommand("INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin]) VALUES (@Username, @Password, @IsAdmin)"))
-                        {
-                            cmd.Parameters.AddWithValue("Username", txtUsername.Text);
-                            cmd.Parameters.AddWithValue("Password", txtPassword.Text);
-                            cmd.Parameters.AddWithValue("IsAdmin", 0);
-                            cmd.Connection = dbh.GetCon();
-                            cmd.ExecuteNonQuery();
-                        }
+                            dbh.CloseConnectionToDB();
+                            string pass = txtPassword.Text;
+                            string name = txtUsername.Text;
+                            int admin = 0;
+                            int score = 0;
+                            string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + name + "', '" + pass + "', '" + admin + "', '" + score + "')";
+                            dbh.Execute(sql);
                     }
 
                 }
-
                 dbh.CloseConnectionToDB();
             }
         }
@@ -142,6 +139,11 @@ namespace ProjectFifaV2
                 dbh.CloseConnectionToDB();
                 MessageHandler.ShowMessage("Wrong username and/or password.");
             }
+        }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+            dbh.CloseConnectionToDB();
         }
     }
 }

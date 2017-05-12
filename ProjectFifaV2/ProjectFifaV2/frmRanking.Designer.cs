@@ -81,7 +81,9 @@
             this.Controls.Add(this.lvRanking);
             this.Controls.Add(this.btnRankingBack);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(565, 651);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(565, 651);
             this.Name = "frmRanking";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ranking";

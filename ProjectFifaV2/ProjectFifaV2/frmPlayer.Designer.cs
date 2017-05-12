@@ -133,7 +133,6 @@
             this.pnlPredCard.Name = "pnlPredCard";
             this.pnlPredCard.Size = new System.Drawing.Size(346, 599);
             this.pnlPredCard.TabIndex = 8;
-            this.pnlPredCard.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlPredCard_Paint);
             // 
             // frmPlayer
             // 

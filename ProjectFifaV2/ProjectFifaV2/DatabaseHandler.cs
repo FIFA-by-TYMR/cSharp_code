@@ -100,7 +100,6 @@ namespace ProjectFifaV2
             SqlCommand queryExecute = new SqlCommand(query, con);
             MessageBox.Show(query);
 
-
             try
             {
                 OpenConnectionToDB();
