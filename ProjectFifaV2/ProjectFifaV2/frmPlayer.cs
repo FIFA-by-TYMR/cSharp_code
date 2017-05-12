@@ -127,8 +127,8 @@ namespace ProjectFifaV2
             //DataTable hometable = dbh.FillDT("SELECT tblTeams.TeamName, tblGames.HomeTeamScore FROM tblGames INNER JOIN tblTeams ON tblGames.HomeTeam = tblTeams.Team_ID");
             // DataTable awayTable = dbh.FillDT("SELECT tblTeams.TeamName, tblGames.AwayTeamScore FROM tblGames INNER JOIN tblTeams ON tblGames.AwayTeam = tblTeams.Team_ID");
 
-            DataTable hometable = dbh.FillDT("SELECT tblTeams.teamName, tblPredictions.PredictedHomeTeamScore, tblTeams.team_id FROM tblPredictions INNER JOIN tblTeams ON tblGames.HomeTeam = tblTeams.team_id WHERE 0= 0");
-            DataTable awayTable = dbh.FillDT("SELECT tblTeams.teamName, tblPredictions.PredictedAwayTeamScore, tblTeams.team_id FROM tblPredictions INNER JOIN tblTeams ON tblGames.AwayTeam = tblTeams.team_id WHERE 0=0 ");
+            DataTable hometable = dbh.FillDT("SELECT tblTeams.teamName, tblPredictions.PredictedHomeTeamScore, tblTeams.team_id FROM tblPredictions INNER JOIN tblTeams");// ON tblGames.HomeTeam = tblTeams.team_id WHERE 0= 0");
+            DataTable awayTable = dbh.FillDT("SELECT tblTeams.teamName, tblPredictions.PredictedAwayTeamScore, tblTeams.team_id FROM tblPredictions INNER JOIN tblTeams ");// ON tblGames.AwayTeam = tblTeams.team_id WHERE 0=0 ");
 
 
             dbh.CloseConnectionToDB();
