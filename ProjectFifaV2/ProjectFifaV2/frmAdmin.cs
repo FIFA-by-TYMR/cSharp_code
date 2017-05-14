@@ -21,15 +21,34 @@ namespace ProjectFifaV2
         {
             dbh = new DatabaseHandler();
             table = new DataTable();
+
             this.ControlBox = false;
+
             InitializeComponent();
+
+            // This disables a couple of buttons and/or text boxes to be sure that an exception won't happen.
+
+            btnLoadData.Enabled = false;
+            btnExecute.Enabled = false;
+            txtQuery.Enabled = false;
         }
 
         private void btnAdminLogOut_Click(object sender, EventArgs e)
         {
             txtQuery.Text = null;
-            txtPath = null;
+            txtPath.Text = " ";
+
             dgvAdminData.DataSource = null;
+
+            // This disables a couple of buttons and/or text boxes to be sure that an exception won't happen.
+
+            btnSelectFile.Enabled = true;
+            btnLoadData.Enabled = false;
+            btnExecute.Enabled = false;
+
+            txtQuery.Enabled = false;
+            txtPath.Enabled = true;
+
             Hide();
         }
 
@@ -43,8 +62,8 @@ namespace ProjectFifaV2
 
         private void ExecuteSQL(string selectCommandText)
         {
-            dbh.TestConnection();
             SqlDataAdapter dataAdapter = new SqlDataAdapter(selectCommandText, dbh.GetCon());
+
             dataAdapter.Fill(table);
             dgvAdminData.DataSource = table;
         }
@@ -58,6 +77,10 @@ namespace ProjectFifaV2
             if (CheckExtension(path, "csv"))
             {
                 txtPath.Text = path;
+
+                // This disables a button to be sure that an exception won't happen.
+
+                btnLoadData.Enabled = true;
             }
             else
             {
@@ -78,9 +101,19 @@ namespace ProjectFifaV2
                    " ROWTERMINATOR = '\n', " +
                    " TABLOCK" +
                 ")";
+
                 dbh.OpenConnectionToDB();
                 ExecuteSQL(insert);
                 dbh.CloseConnectionToDB();
+
+                // This disables a couple of buttons and/or text boxes to be sure that an exception won't happen.
+
+                btnExecute.Enabled = true;
+                btnLoadData.Enabled = false;
+                btnSelectFile.Enabled = false;
+
+                txtQuery.Enabled = true;
+                txtPath.Enabled = false;
             }
             else
             {
@@ -107,6 +140,13 @@ namespace ProjectFifaV2
         {
             int extensionLength = extension.Length;
             int strLength = fileString.Length;
+
+            // This makes sure that there need to be a minimum path of 3 chars (Example: "C:\" and "D:\").
+
+            if (fileString.Length < 3 )
+            {
+                return false;
+            }
 
             string ext = fileString.Substring(strLength - extensionLength, extensionLength);
 
