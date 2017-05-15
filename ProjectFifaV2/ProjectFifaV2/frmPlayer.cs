@@ -125,10 +125,6 @@ namespace ProjectFifaV2
             DataTable hometable = dbh.FillDT("SELECT tblTeams.TeamName, tblGames.HomeTeamScore FROM tblGames INNER JOIN tblTeams ON tblGames.HomeTeam = tblTeams.Team_ID");
             DataTable awayTable = dbh.FillDT("SELECT tblTeams.TeamName, tblGames.AwayTeamScore FROM tblGames INNER JOIN tblTeams ON tblGames.AwayTeam = tblTeams.Team_ID");
 
-            //DataTable hometable = dbh.FillDT("SELECT tblTeams.teamName, tblPredictions.PredictedHomeTeamScore, tblTeams.team_id FROM tblPredictions INNER JOIN tblTeams");// ON tblGames.HomeTeam = tblTeams.team_id WHERE 0= 0");
-            //DataTable awayTable = dbh.FillDT("SELECT tblTeams.teamName, tblPredictions.PredictedAwayTeamScore, tblTeams.team_id FROM tblPredictions INNER JOIN tblTeams ");// ON tblGames.AwayTeam = tblTeams.team_id WHERE 0=0 ");
-
-
             dbh.CloseConnectionToDB();
 
             for (int i = 0; i < hometable.Rows.Count; i++)
@@ -145,11 +141,8 @@ namespace ProjectFifaV2
 
         private void ShowScoreCard()
         {
-            //dbh.TestConnection();
-            //dbh.OpenConnectionToDB();
-
-            DataTable hometable = dbh.FillDT("SELECT tblTeams.TeamName FROM tblGames INNER JOIN tblTeams ON tblGames.HomeTeam = tblTeams.Team_ID");
-            DataTable awayTable = dbh.FillDT("SELECT tblTeams.TeamName FROM tblGames INNER JOIN tblTeams ON tblGames.AwayTeam = tblTeams.Team_ID");
+            DataTable hometable = dbh.FillDT("SELECT TblTeams.Teamname FROM tblGames INNER JOIN tblTeams ON tblGames.HomeTeam = tblTeams.Team_id");
+            DataTable awayTable = dbh.FillDT("SELECT TblTeams.Teamname FROM tblGames INNER JOIN tblTeams ON tblGames.AwayTeam = tblTeams.Team_id");
 
             dbh.CloseConnectionToDB();
 
@@ -188,10 +181,6 @@ namespace ProjectFifaV2
                 pnlPredCard.Controls.Add(lblAwayTeam);
                 this.counter++;
                 ListViewItem lstItem = new ListViewItem(dataRowHome["TeamName"].ToString());
-                //lstItem.SubItems.Add(dataRowHome["HomeTeamScore"].ToString());
-                //lstItem.SubItems.Add(dataRowAway["AwayTeamScore"].ToString());
-                //lstItem.SubItems.Add(dataRowAway["TeamName"].ToString());
-                //lvOverview.Items.Add(lstItem);
             }
         }
 
@@ -314,11 +303,6 @@ namespace ProjectFifaV2
         private void lvOverview_Click(object sender, EventArgs e)
         {
             ShowResults();
-        }
-
-        private void prediction_view_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

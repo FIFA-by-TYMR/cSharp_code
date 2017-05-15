@@ -171,7 +171,6 @@
             this.prediction_view.TabIndex = 9;
             this.prediction_view.UseCompatibleStateImageBehavior = false;
             this.prediction_view.View = System.Windows.Forms.View.Details;
-            this.prediction_view.SelectedIndexChanged += new System.EventHandler(this.prediction_view_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
