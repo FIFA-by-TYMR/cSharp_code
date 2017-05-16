@@ -141,8 +141,8 @@ namespace ProjectFifaV2
 
         private void ShowScoreCard()
         {
-            DataTable hometable = dbh.FillDT("SELECT TblTeams.Teamname FROM tblGames INNER JOIN tblTeams ON tblGames.HomeTeam = tblTeams.Team_id");
-            DataTable awayTable = dbh.FillDT("SELECT TblTeams.Teamname FROM tblGames INNER JOIN tblTeams ON tblGames.AwayTeam = tblTeams.Team_id");
+            DataTable hometable = dbh.FillDT("SELECT TblTeams.Teamname FROM TblGames INNER JOIN TblTeams ON TblGames.HomeTeam = TblTeams.Team_id");
+            DataTable awayTable = dbh.FillDT("SELECT TblTeams.Teamname FROM TblGames INNER JOIN TblTeams ON TblGames.AwayTeam = TblTeams.Team_id");
 
             dbh.CloseConnectionToDB();
 
