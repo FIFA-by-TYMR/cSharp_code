@@ -16,7 +16,8 @@ namespace ProjectFifaV2
      
         const int lengthInnerArray = 2;
         const int lengthOutterArray = 2;
-
+        internal List<string> lstPredHome;
+        internal List<string> lstPredAway;
         private Form frmRanking;
         private string userName;
         private DataTable tblUsers;
@@ -186,9 +187,12 @@ namespace ProjectFifaV2
 
                 pnlPredCard.Controls.Add(lblHomeTeam);
                 pnlPredCard.Controls.Add(txtHomePred);
+
+
+
                 pnlPredCard.Controls.Add(txtAwayPred);
                 pnlPredCard.Controls.Add(lblAwayTeam);
-                this.counter++;
+
                 ListViewItem lstItem = new ListViewItem(dataRowHome["TeamName"].ToString());
                 //lstItem.SubItems.Add(dataRowHome["HomeTeamScore"].ToString());
                 //lstItem.SubItems.Add(dataRowAway["AwayTeamScore"].ToString());
@@ -217,7 +221,7 @@ namespace ProjectFifaV2
                 DataTable tblUsers = dbh.FillDT("SELECT * from tblUsers WHERE (Username='" + this.Text + "')");
                 DataRow rowUser = tblUsers.Rows[0];
                 int j = 0;
-                string home = "1";
+                string home = ;
                 string away = "2";
                 string sqlex = "UPDATE tblPredictions SET PredictedHomeScore=" + home + ", PredictedAwayScore=" + away + " WHERE (User_id=" + rowUser["id"] + " AND Game_id=" + Convert.ToInt32(j) + ")";
 
