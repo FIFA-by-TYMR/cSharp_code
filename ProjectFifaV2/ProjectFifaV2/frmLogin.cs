@@ -35,6 +35,7 @@ namespace ProjectFifaV2
             {
                 dbh.TestConnection();
                 dbh.OpenConnectionToDB();
+
                 bool exist = false;
 
                 using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [tblUsers] WHERE Username = @Username", dbh.GetCon()))
@@ -52,24 +53,31 @@ namespace ProjectFifaV2
                     if (txtUsername.Text == "ninja")
                     {
                         dbh.CloseConnectionToDB();
+
                         string pass = txtPassword.Text;
                         string name = txtUsername.Text;
                         int admin = 2;
                         int score = 0;
+
                         string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + name + "', '" + pass + "', '" + admin + "', '" + score + "')";
+                        
                         dbh.Execute(sql);
                     }
                     else
                     {
                         dbh.CloseConnectionToDB();
+
                         string pass = txtPassword.Text;
                         string name = txtUsername.Text;
                         int admin = 0;
                         int score = 0;
+
                         string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + name + "', '" + pass + "', '" + admin + "', '" + score + "')";
+
                         dbh.Execute(sql);
                     }
                 }
+
                 dbh.CloseConnectionToDB();
             }
         }
@@ -83,6 +91,7 @@ namespace ProjectFifaV2
                 {
                     dbh.CloseConnectionToDB();
                 }
+
                 Application.Exit();
             }
         }
@@ -119,6 +128,7 @@ namespace ProjectFifaV2
                     cmd.Parameters.AddWithValue("Username", username);
                     admin = (int)cmd.ExecuteScalar() > 0;
                 }
+
                 dbh.CloseConnectionToDB();
 
                 if (admin)
