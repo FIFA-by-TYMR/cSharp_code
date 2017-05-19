@@ -90,10 +90,81 @@ namespace ProjectFifaV2
 
         private void btnLoadData_Click(object sender, EventArgs e)
         {
-            if (!(txtPath.Text == null))
+            if (!(txtPath.Text == null && rb_Teams.Checked == true))
             {
+                string drop = "DROP TABLE TblTeams ";
+                string create =
+                    "CREATE TABLE TblTeams(" +
+                    "id INTEGER  NOT NULL PRIMARY KEY AUTO_INCREMENT " +
+                    ",team_id_a INTEGER  NOT NULL" +
+                    ", team_id_b      INTEGER NOT NULL" +
+                    ",score_team_a VARCHAR(4) NOT NULL" +
+                    ", score_team_b   VARCHAR(4) NOT NULL" +
+                    ", match_duration BIT  NOT NULL" +
+                    ", empty bit null"+
+                    "); ";
                 string insert = "BULK INSERT TblTeams" +
                " FROM '"+txtPath.Text+"'" +
+                "WITH" +
+                "(" +
+                   " FIRSTROW = 2," +
+                   " FIELDTERMINATOR = ',', " +
+                   " ROWTERMINATOR = '\n', " +
+                   " TABLOCK" +
+                ");";
+
+                //dbh.OpenConnectionToDB();
+                ExecuteSQL(drop);
+                dbh.ExecuteAdmin(create);
+                dbh.ExecuteAdmin(insert);
+                //dbh.CloseConnectionToDB();
+
+                // This disables a couple of buttons and/or text boxes to be sure that an exception won't happen.
+
+                btnExecute.Enabled = true;
+                btnLoadData.Enabled = false;
+                btnSelectFile.Enabled = false;
+
+                txtQuery.Enabled = true;
+                txtPath.Enabled = false;
+            }
+            else
+            {
+                MessageHandler.ShowMessage("No filename selected.");
+            }
+            if (!(txtPath.Text == null && rb_players.Checked == true))
+            {
+                string insert = "BULK INSERT TblPlayers" +
+               " FROM '" + txtPath.Text + "'" +
+                "WITH" +
+                "(" +
+                   " FIRSTROW = 2," +
+                   " FIELDTERMINATOR = ',', " +
+                   " ROWTERMINATOR = '\n', " +
+                   " TABLOCK" +
+                ")";
+
+                //dbh.OpenConnectionToDB();
+                dbh.ExecuteAdmin(insert);
+                //dbh.CloseConnectionToDB();
+
+                // This disables a couple of buttons and/or text boxes to be sure that an exception won't happen.
+
+                btnExecute.Enabled = true;
+                btnLoadData.Enabled = false;
+                btnSelectFile.Enabled = false;
+
+                txtQuery.Enabled = true;
+                txtPath.Enabled = false;
+            }
+            else
+            {
+                MessageHandler.ShowMessage("No filename selected.");
+            }
+            if (!(txtPath.Text == null && rb_Games.Checked == true))
+            {
+                string insert = "BULK INSERT TblGames" +
+               " FROM '" + txtPath.Text + "'" +
                 "WITH" +
                 "(" +
                    " FIRSTROW = 2," +
@@ -103,7 +174,7 @@ namespace ProjectFifaV2
                 ")";
 
                 dbh.OpenConnectionToDB();
-                ExecuteSQL(insert);
+                dbh.ExecuteAdmin(insert);
                 dbh.CloseConnectionToDB();
 
                 // This disables a couple of buttons and/or text boxes to be sure that an exception won't happen.
