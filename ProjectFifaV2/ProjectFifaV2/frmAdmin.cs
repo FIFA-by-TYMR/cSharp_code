@@ -19,6 +19,8 @@ namespace ProjectFifaV2
 
         public frmAdmin()
         {
+            // Creates an its own databasehandler and datatable to make sure that we could execute query's.
+
             dbh = new DatabaseHandler();
             table = new DataTable();
 
@@ -35,6 +37,8 @@ namespace ProjectFifaV2
 
         private void btnAdminLogOut_Click(object sender, EventArgs e)
         {
+            // Its sets the path the query text and path to " ".
+
             txtQuery.Text = null;
             txtPath.Text = " ";
 
@@ -54,7 +58,9 @@ namespace ProjectFifaV2
 
         private void btnExecute_Click(object sender, EventArgs e)
         {
-            if (txtQuery.TextLength > 0)
+            // This sets the char length for the execute button.
+
+            if (txtQuery.TextLength > 8)
             {
                 ExecuteSQL(txtQuery.Text);
             }
@@ -62,6 +68,8 @@ namespace ProjectFifaV2
 
         private void ExecuteSQL(string selectCommandText)
         {
+            // This executes the query and sets it in the database.
+
             SqlDataAdapter dataAdapter = new SqlDataAdapter(selectCommandText, dbh.GetCon());
 
             dataAdapter.Fill(table);
@@ -70,6 +78,8 @@ namespace ProjectFifaV2
 
         private void btnSelectFile_Click(object sender, EventArgs e)
         {
+            // This enables the option to select a file from the file explorer.
+
             txtPath.Text = null;
             
             string path = GetFilePath();
@@ -90,6 +100,8 @@ namespace ProjectFifaV2
 
         private void btnLoadData_Click(object sender, EventArgs e)
         {
+            // This is letting us to load in a CSV file.
+
             if (!(txtPath.Text == null))
             {
                 string insert = "BULK INSERT TblTeams" +
@@ -123,6 +135,8 @@ namespace ProjectFifaV2
         
         private string GetFilePath()
         {
+            // This gets the file path.
+
             string filePath = "";
             opfd = new OpenFileDialog();
 
@@ -138,6 +152,8 @@ namespace ProjectFifaV2
 
         private bool CheckExtension(string fileString, string extension)
         {
+            // This check the extension to make sure its an CSV file.
+
             int extensionLength = extension.Length;
             int strLength = fileString.Length;
 

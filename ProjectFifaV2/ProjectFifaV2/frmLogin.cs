@@ -19,7 +19,10 @@ namespace ProjectFifaV2
 
         public frmLogin()
         {
+            // Creates an its own databasehandler, creates an frmAdmin if an admin is going to log in and creates an frmRanking to see all users ranks.
+
             InitializeComponent();
+
             dbh = new DatabaseHandler();
             frmAdmin = new frmAdmin();
             frmRanking = new frmRanking();
@@ -27,6 +30,8 @@ namespace ProjectFifaV2
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
+            // This is letting the user to make an account.
+
             if (txtUsername.Text == "" || txtPassword.Text == "")
             {
                 MessageBox.Show("Both fields are required");
@@ -84,7 +89,10 @@ namespace ProjectFifaV2
 
         private void btnExit_Click(object sender, EventArgs e)
         {
+            // Gives the option to quit the application.
+
             DialogResult result = MessageBox.Show("Are you sure you want to quit?", "Quit", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
             if (result.Equals(DialogResult.OK))
             {
                 if (dbh.GetCon().State == ConnectionState.Open)
@@ -103,7 +111,8 @@ namespace ProjectFifaV2
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            dbh.TestConnection();
+            // This is letting the user to log in and go towards the form where he/she belongs.
+
             dbh.OpenConnectionToDB();
 
             bool exist = false;

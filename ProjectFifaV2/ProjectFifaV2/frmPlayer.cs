@@ -12,6 +12,8 @@ namespace ProjectFifaV2
 {
     public partial class frmPlayer : Form
     {
+        // This is letting the user to bet in the numericupdowns, creates an database handler to execute some query's if he/she presses an button and remember the users id and username.
+
         internal DatabaseHandler dbh = new DatabaseHandler();
      
         const int lengthInnerArray = 2;
@@ -32,6 +34,8 @@ namespace ProjectFifaV2
 
         public frmPlayer(Form frm, string un)
         {
+            // This is letting the user to see the preditions, result and scorecard.
+
             int amount = dbh.DTInt("SELECT COUNT(*) FROM TblGames");
             rows = new NumericUpDown[amount, lengthInnerArray];
 
@@ -44,6 +48,8 @@ namespace ProjectFifaV2
             if (DisableEditButton())
             {
                 btnEditPrediction.Enabled = false;
+                btnClearPrediction.Enabled = false;
+                SaveButton.Enabled = false;
             }
 
             ShowResults();
@@ -54,16 +60,22 @@ namespace ProjectFifaV2
 
         private void btnLogOut_Click(object sender, EventArgs e)
         {
+            // This hides the form from the user, to make sure if he wants to log in again or to close the application.
+
             Hide();
         }
 
         private void btnShowRanking_Click(object sender, EventArgs e)
         {
+            // This shows the frmRanking for the user.
+
             frmRanking.Show();
         }
 
         private void btnClearPrediction_Click(object sender, EventArgs e)
         {
+            // This is letting the user to clear his/her preditions.
+
             DialogResult result = MessageBox.Show("Are you sure you want to clear your prediction?", "Clear Predictions", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 
             if (result.Equals(DialogResult.OK))
@@ -112,11 +124,12 @@ namespace ProjectFifaV2
 
         private bool DisableEditButton()
         {
+            // This is the deadline for filling in the predictions.
+
             bool hasPassed;
 
             if (!iselton())
             {
-                //This is the deadline for filling in the predictions
 
                 DateTime deadline = new DateTime(2019, 06, 12);
                 DateTime curTime = DateTime.Now;
@@ -143,7 +156,8 @@ namespace ProjectFifaV2
 
         private void ShowResults()
         {
-            dbh.TestConnection();
+            // This shows your predition result.
+
             dbh.OpenConnectionToDB();
 
             DataTable hometable = dbh.FillDT("SELECT TblTeams.TeamName, TblGames.HomeTeamScore FROM TblGames INNER JOIN TblTeams ON TblGames.HomeTeam = TblTeams.Team_ID");
@@ -168,6 +182,8 @@ namespace ProjectFifaV2
 
         private void ShowScoreCard()
         {
+            // This allows the user to make his/her bet.
+
             DataTable hometable = dbh.FillDT("SELECT TblTeams.Teamname FROM TblGames INNER JOIN TblTeams ON TblGames.HomeTeam = TblTeams.Team_id");
             DataTable awayTable = dbh.FillDT("SELECT TblTeams.Teamname FROM TblGames INNER JOIN TblTeams ON TblGames.AwayTeam = TblTeams.Team_id");
 
@@ -215,6 +231,8 @@ namespace ProjectFifaV2
 
         internal void GetUsername(string un)
         {
+            // This getter gets the users username.
+
             userName = un;
         }
 

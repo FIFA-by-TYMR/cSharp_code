@@ -14,6 +14,8 @@ namespace ProjectFifaV2
 
         public DatabaseHandler()
         {
+            // This is the database connection.
+
             string Path = Environment.CurrentDirectory;
             string[] appPath = Path.Split(new string[] { "bin" }, StringSplitOptions.None);
             AppDomain.CurrentDomain.SetData("DataDirectory", appPath[0]);
@@ -23,6 +25,8 @@ namespace ProjectFifaV2
 
         public void TestConnection()
         {
+            // This tests the database connection.
+
             bool open = false;
 
             try
@@ -42,6 +46,7 @@ namespace ProjectFifaV2
                 {
                     open = true;
                 }
+
                 con.Close();
             }
 
@@ -53,16 +58,22 @@ namespace ProjectFifaV2
 
         public void OpenConnectionToDB()
         {
+            // This opens the database connection.
+
             con.Open();
         }
 
         public void CloseConnectionToDB()
         {
+            // This is closes the database connection.
+
             con.Close();
         }
 
         public System.Data.DataTable FillDT(string query)
         {
+            // This fills the datatable.
+
             TestConnection();
             OpenConnectionToDB();
 
@@ -76,6 +87,8 @@ namespace ProjectFifaV2
         }
         public int DTInt(string query)
         {
+            // This returns an int from the database.
+
             TestConnection();
             OpenConnectionToDB();
 
@@ -91,10 +104,14 @@ namespace ProjectFifaV2
 
         public SqlConnection GetCon()
         {
+            // This a getter that gets the connection.
+
             return con;
         }
         public void Execute(string query)
         {
+            // This executes the query and returns a message if its passed/failed.
+
             SqlCommand queryExecute = new SqlCommand(query, con);
             MessageBox.Show(query);
 
@@ -113,29 +130,10 @@ namespace ProjectFifaV2
             }
         }
 
-        public string ExecuteString(string query)
-        {
-            SqlCommand queryExecute = new SqlCommand(query, con);
-            MessageBox.Show(query);
-
-            try
-            {
-                OpenConnectionToDB();
-                SqlDataReader dr = queryExecute.ExecuteReader();
-                string treatment = dr[0].ToString();
-                return treatment;
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Error");
-                CloseConnectionToDB();
-                return "failed";
-            }
-        }
-
         public int ExecuteInt(string query)
         {
+            // This executes the query and returns an int, if its failed it returns a message.
+
             SqlCommand queryExecute = new SqlCommand(query, con);
             MessageBox.Show(query);
 
