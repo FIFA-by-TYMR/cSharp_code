@@ -13,6 +13,7 @@ namespace ProjectFifaV2
     public partial class frmLogin : Form
     {
         private DatabaseHandler dbh;
+
         private Form frmAdmin;
         private Form frmPlayer;
         private Form frmRanking;
@@ -24,6 +25,7 @@ namespace ProjectFifaV2
             InitializeComponent();
 
             dbh = new DatabaseHandler();
+
             frmAdmin = new frmAdmin();
             frmRanking = new frmRanking();
         }
@@ -34,11 +36,12 @@ namespace ProjectFifaV2
 
             if (txtUsername.Text == "" || txtPassword.Text == "")
             {
+                // This shows a message is the files are empty.
+
                 MessageBox.Show("Both fields are required");
             }
             else
             {
-                dbh.TestConnection();
                 dbh.OpenConnectionToDB();
 
                 bool exist = false;
@@ -46,25 +49,31 @@ namespace ProjectFifaV2
                 using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [tblUsers] WHERE Username = @Username", dbh.GetCon()))
                 {
                     cmd.Parameters.AddWithValue("Username", txtUsername.Text);
+
                     exist = (int)cmd.ExecuteScalar() > 0;
                 }
 
                 if (exist)
                 {
+                    // This shows a message if the user already exists.
+
                     MessageHandler.ShowMessage("This user already exists.");
                 }
                 else
                 {
-                    if (txtUsername.Text == "ninja")
+                    // This is Elton's secret account.
+
+                    if (txtUsername.Text == "Ninja")
                     {
                         dbh.CloseConnectionToDB();
 
-                        string pass = txtPassword.Text;
-                        string name = txtUsername.Text;
+                        string password = txtPassword.Text;
+                        string userName = txtUsername.Text;
+
                         int admin = 2;
                         int score = 0;
 
-                        string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + name + "', '" + pass + "', '" + admin + "', '" + score + "')";
+                        string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + userName + "', '" + password + "', '" + admin + "', '" + score + "')";
                         
                         dbh.Execute(sql);
                     }
@@ -72,12 +81,13 @@ namespace ProjectFifaV2
                     {
                         dbh.CloseConnectionToDB();
 
-                        string pass = txtPassword.Text;
-                        string name = txtUsername.Text;
+                        string password = txtPassword.Text;
+                        string userName = txtUsername.Text;
+
                         int admin = 0;
                         int score = 0;
 
-                        string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + name + "', '" + pass + "', '" + admin + "', '" + score + "')";
+                        string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + userName + "', '" + password + "', '" + admin + "', '" + score + "')";
 
                         dbh.Execute(sql);
                     }
@@ -106,6 +116,8 @@ namespace ProjectFifaV2
 
         private void btnShowRanking_Click(object sender, EventArgs e)
         {
+            // Shows the scores from all users.
+
             frmRanking.Show();
         }
 
@@ -116,6 +128,7 @@ namespace ProjectFifaV2
             dbh.OpenConnectionToDB();
 
             bool exist = false;
+
             string username = txtUsername.Text;
             string password = txtPassword.Text;
 
@@ -126,15 +139,18 @@ namespace ProjectFifaV2
             {
                 cmd.Parameters.AddWithValue("Username", username);
                 cmd.Parameters.AddWithValue("Password", password);
+
                 exist = (int)cmd.ExecuteScalar() > 0;
             }
 
             if (exist)
             {
                 bool admin;
-                using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) from [tblUsers] WHERE Username = @Username AND IsAdmin = 1", dbh.GetCon()))
+
+                using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [tblUsers] WHERE Username = @Username AND IsAdmin = 1", dbh.GetCon()))
                 {
                     cmd.Parameters.AddWithValue("Username", username);
+
                     admin = (int)cmd.ExecuteScalar() > 0;
                 }
 
@@ -152,7 +168,10 @@ namespace ProjectFifaV2
             }
             else
             {
+                // This shows a message if the username and or password is wrong.
+
                 dbh.CloseConnectionToDB();
+
                 MessageHandler.ShowMessage("Wrong username and/or password.");
             }
         }

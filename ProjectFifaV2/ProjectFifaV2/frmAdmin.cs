@@ -53,6 +53,8 @@ namespace ProjectFifaV2
             txtQuery.Enabled = false;
             txtPath.Enabled = true;
 
+            // This hides the form.
+
             Hide();
         }
 
@@ -73,12 +75,13 @@ namespace ProjectFifaV2
             SqlDataAdapter dataAdapter = new SqlDataAdapter(selectCommandText, dbh.GetCon());
 
             dataAdapter.Fill(table);
+
             dgvAdminData.DataSource = table;
         }
 
         private void btnSelectFile_Click(object sender, EventArgs e)
         {
-            // This enables the option to select a file from the file explorer.
+            // This enables the option to select a file from the file explorer aka "Verkenner".
 
             txtPath.Text = null;
             
@@ -94,6 +97,8 @@ namespace ProjectFifaV2
             }
             else
             {
+                // This shows a message if the file isn't a CSV file.
+
                 MessageHandler.ShowMessage("The wrong filetype is selected.");
             }
         }
@@ -104,8 +109,8 @@ namespace ProjectFifaV2
 
             if (!(txtPath.Text == null))
             {
-                string insert = "BULK INSERT TblTeams" +
-               " FROM '"+txtPath.Text+"'" +
+                string sql = "BULK INSERT TblTeams" +
+               " FROM '"+ txtPath.Text +"'" +
                 "WITH" +
                 "(" +
                    " FIRSTROW = 2," +
@@ -115,7 +120,9 @@ namespace ProjectFifaV2
                 ")";
 
                 dbh.OpenConnectionToDB();
-                ExecuteSQL(insert);
+
+                ExecuteSQL(sql);
+
                 dbh.CloseConnectionToDB();
 
                 // This disables a couple of buttons and/or text boxes to be sure that an exception won't happen.
@@ -129,6 +136,8 @@ namespace ProjectFifaV2
             }
             else
             {
+                // This shows a message if nothing is selected.
+
                 MessageHandler.ShowMessage("No filename selected.");
             }
         }
