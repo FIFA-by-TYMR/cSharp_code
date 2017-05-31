@@ -35,6 +35,9 @@
             this.btnExecute = new System.Windows.Forms.Button();
             this.dgvAdminData = new System.Windows.Forms.DataGridView();
             this.btnAdminLogOut = new System.Windows.Forms.Button();
+            this.rb_Teams = new System.Windows.Forms.RadioButton();
+            this.rb_Games = new System.Windows.Forms.RadioButton();
+            this.rb_players = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdminData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,6 +71,7 @@
             // 
             // txtQuery
             // 
+            this.txtQuery.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtQuery.Location = new System.Drawing.Point(55, 139);
             this.txtQuery.MaxLength = 150;
             this.txtQuery.Multiline = true;
@@ -103,11 +107,47 @@
             this.btnAdminLogOut.UseVisualStyleBackColor = true;
             this.btnAdminLogOut.Click += new System.EventHandler(this.btnAdminLogOut_Click);
             // 
+            // rb_Teams
+            // 
+            this.rb_Teams.AutoSize = true;
+            this.rb_Teams.Location = new System.Drawing.Point(55, 59);
+            this.rb_Teams.Name = "rb_Teams";
+            this.rb_Teams.Size = new System.Drawing.Size(57, 17);
+            this.rb_Teams.TabIndex = 9;
+            this.rb_Teams.TabStop = true;
+            this.rb_Teams.Text = "Teams";
+            this.rb_Teams.UseVisualStyleBackColor = true;
+            // 
+            // rb_Games
+            // 
+            this.rb_Games.AutoSize = true;
+            this.rb_Games.Location = new System.Drawing.Point(114, 59);
+            this.rb_Games.Name = "rb_Games";
+            this.rb_Games.Size = new System.Drawing.Size(58, 17);
+            this.rb_Games.TabIndex = 10;
+            this.rb_Games.TabStop = true;
+            this.rb_Games.Text = "Games";
+            this.rb_Games.UseVisualStyleBackColor = true;
+            // 
+            // rb_players
+            // 
+            this.rb_players.AutoSize = true;
+            this.rb_players.Location = new System.Drawing.Point(178, 59);
+            this.rb_players.Name = "rb_players";
+            this.rb_players.Size = new System.Drawing.Size(59, 17);
+            this.rb_players.TabIndex = 11;
+            this.rb_players.TabStop = true;
+            this.rb_players.Text = "Players";
+            this.rb_players.UseVisualStyleBackColor = true;
+            // 
             // frmAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(959, 512);
+            this.Controls.Add(this.rb_players);
+            this.Controls.Add(this.rb_Games);
+            this.Controls.Add(this.rb_Teams);
             this.Controls.Add(this.btnAdminLogOut);
             this.Controls.Add(this.dgvAdminData);
             this.Controls.Add(this.btnExecute);
@@ -133,5 +173,8 @@
         private System.Windows.Forms.Button btnExecute;
         private System.Windows.Forms.DataGridView dgvAdminData;
         private System.Windows.Forms.Button btnAdminLogOut;
+        private System.Windows.Forms.RadioButton rb_Teams;
+        private System.Windows.Forms.RadioButton rb_Games;
+        private System.Windows.Forms.RadioButton rb_players;
     }
 }

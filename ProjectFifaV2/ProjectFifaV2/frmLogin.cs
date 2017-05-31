@@ -62,8 +62,8 @@ namespace ProjectFifaV2
                 else
                 {
                     // This is Elton's secret account.
-
-                    if (txtUsername.Text == "Ninja")
+                    string user = txtUsername.Text.ToLower();
+                    if (user == "ninja")
                     {
                         dbh.CloseConnectionToDB();
 

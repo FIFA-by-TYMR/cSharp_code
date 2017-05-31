@@ -151,5 +151,23 @@ namespace ProjectFifaV2
                 return 0;
             }
         }
+        public void ExecuteAdmin(string query)
+        {
+            SqlCommand queryExecute = new SqlCommand(query, con);
+            MessageBox.Show(query);
+
+            try
+            {
+                OpenConnectionToDB();
+                queryExecute.Prepare();
+                queryExecute.ExecuteNonQuery();
+                CloseConnectionToDB();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+                CloseConnectionToDB();
+            }
+        }
     }
 }
