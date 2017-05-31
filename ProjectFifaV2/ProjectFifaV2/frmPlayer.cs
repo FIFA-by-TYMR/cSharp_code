@@ -34,7 +34,7 @@ namespace ProjectFifaV2
         NumericUpDown[,] rows;
 
 
-        public frmPlayer(Form frm, string un)
+        public frmPlayer(Form frm)
         {
             // This is letting the user to see the preditions, result and scorecard.
 
@@ -60,7 +60,6 @@ namespace ProjectFifaV2
             ShowResults();
             ShowScoreCard();
 
-            this.Text = un;
         }
 
         private void btnLogOut_Click(object sender, EventArgs e)
