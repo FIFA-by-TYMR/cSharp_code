@@ -57,7 +57,7 @@
             // 
             // btnEditPrediction
             // 
-            this.btnEditPrediction.Location = new System.Drawing.Point(364, 93);
+            this.btnEditPrediction.Location = new System.Drawing.Point(452, 36);
             this.btnEditPrediction.Name = "btnEditPrediction";
             this.btnEditPrediction.Size = new System.Drawing.Size(106, 30);
             this.btnEditPrediction.TabIndex = 1;
@@ -67,7 +67,7 @@
             // 
             // btnClearPrediction
             // 
-            this.btnClearPrediction.Location = new System.Drawing.Point(364, 129);
+            this.btnClearPrediction.Location = new System.Drawing.Point(574, 36);
             this.btnClearPrediction.Name = "btnClearPrediction";
             this.btnClearPrediction.Size = new System.Drawing.Size(106, 30);
             this.btnClearPrediction.TabIndex = 2;
@@ -77,7 +77,7 @@
             // 
             // btnLogOut
             // 
-            this.btnLogOut.Location = new System.Drawing.Point(364, 165);
+            this.btnLogOut.Location = new System.Drawing.Point(1016, 688);
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.Size = new System.Drawing.Size(106, 30);
             this.btnLogOut.TabIndex = 3;
@@ -88,7 +88,7 @@
             // lblResultsOverview
             // 
             this.lblResultsOverview.AutoSize = true;
-            this.lblResultsOverview.Location = new System.Drawing.Point(582, 20);
+            this.lblResultsOverview.Location = new System.Drawing.Point(921, 20);
             this.lblResultsOverview.Name = "lblResultsOverview";
             this.lblResultsOverview.Size = new System.Drawing.Size(90, 13);
             this.lblResultsOverview.TabIndex = 5;
@@ -96,7 +96,7 @@
             // 
             // btnShowRanking
             // 
-            this.btnShowRanking.Location = new System.Drawing.Point(364, 21);
+            this.btnShowRanking.Location = new System.Drawing.Point(700, 36);
             this.btnShowRanking.Name = "btnShowRanking";
             this.btnShowRanking.Size = new System.Drawing.Size(106, 30);
             this.btnShowRanking.TabIndex = 6;
@@ -111,7 +111,7 @@
             this.clmHomeTeamScore,
             this.clmAwayTeamScore,
             this.clmAwayTeam});
-            this.lvOverview.Location = new System.Drawing.Point(476, 36);
+            this.lvOverview.Location = new System.Drawing.Point(812, 36);
             this.lvOverview.Name = "lvOverview";
             this.lvOverview.Size = new System.Drawing.Size(310, 600);
             this.lvOverview.TabIndex = 7;
@@ -143,14 +143,14 @@
             // pnlPredCard
             // 
             this.pnlPredCard.AutoScroll = true;
-            this.pnlPredCard.Location = new System.Drawing.Point(12, 36);
+            this.pnlPredCard.Location = new System.Drawing.Point(395, 82);
             this.pnlPredCard.Name = "pnlPredCard";
             this.pnlPredCard.Size = new System.Drawing.Size(346, 599);
             this.pnlPredCard.TabIndex = 8;
             // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(364, 57);
+            this.SaveButton.Location = new System.Drawing.Point(328, 36);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(106, 30);
             this.SaveButton.TabIndex = 9;
@@ -210,7 +210,7 @@
             this.columnHeader6,
             this.columnHeader7,
             this.columnHeader8});
-            this.listView1.Location = new System.Drawing.Point(807, 36);
+            this.listView1.Location = new System.Drawing.Point(12, 36);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(310, 600);
             this.listView1.TabIndex = 10;
@@ -242,17 +242,17 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(926, 20);
+            this.label2.Location = new System.Drawing.Point(108, 20);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(102, 13);
+            this.label2.Size = new System.Drawing.Size(107, 13);
             this.label2.TabIndex = 11;
-            this.label2.Text = "Prediction Overview";
+            this.label2.Text = "Predictions Overview";
             // 
             // frmPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1124, 730);
+            this.ClientSize = new System.Drawing.Size(1133, 730);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.SaveButton);
