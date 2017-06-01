@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRanking));
             this.btnRankingBack = new System.Windows.Forms.Button();
             this.lvRanking = new System.Windows.Forms.ListView();
             this.clmRank = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -80,6 +81,7 @@
             this.ClientSize = new System.Drawing.Size(549, 612);
             this.Controls.Add(this.lvRanking);
             this.Controls.Add(this.btnRankingBack);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmRanking";
