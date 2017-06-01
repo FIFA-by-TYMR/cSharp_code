@@ -31,6 +31,9 @@ namespace ProjectFifaV2
         List<NumericUpDown> txtBoxList;
         List<NumericUpDown>[,] newRows = new List<NumericUpDown>[2, 2];
 
+        public NumericUpDown txtHomePred;
+        public NumericUpDown txtAwayPred;
+
         NumericUpDown[,] rows;
 
 
@@ -54,11 +57,12 @@ namespace ProjectFifaV2
             {
                 btnEditPrediction.Enabled = false;
                 btnClearPrediction.Enabled = false;
-                SaveButton.Enabled = false;
+                btnSaveButton.Enabled = false;
             }
 
             ShowResults();
             ShowScoreCard();
+            ShowPredictions();
 
         }
 
@@ -181,6 +185,33 @@ namespace ProjectFifaV2
             }
         }
 
+        private void ShowPredictions()
+        {
+            // This shows your predition result.
+
+            dbh.OpenConnectionToDB();
+
+            DataTable homeTable = dbh.FillDT("SELECT * FROM TblPredictions INNER JOIN TblGames ON TblPredictions.Game_id = TblGames.Game_id");
+            DataTable awayTable = dbh.FillDT("SELECT * FROM TblPredictions INNER JOIN TblGames ON TblPredictions.Game_id = TblGames.Game_id");
+            //DataTable t1 = dbh.FillDT("SELECT TblTeams.TeamName FROM TblGames INNER JOIN TblTeams ON TblGames.AwayTeam = TblTeams.Team_ID");
+
+            dbh.CloseConnectionToDB();
+
+            for (int i = 0; i < homeTable.Rows.Count; i++)
+            {
+                DataRow dataRowHome = homeTable.Rows[i];
+                DataRow dataRowAway = awayTable.Rows[i];
+
+                ListViewItem lstItem = new ListViewItem(dataRowHome["Game_id"].ToString());
+
+                lstItem.SubItems.Add(dataRowHome["HomeTeamScore"].ToString());
+                lstItem.SubItems.Add(dataRowAway["AwayTeamScore"].ToString());
+                lstItem.SubItems.Add(dataRowAway["Game_id"].ToString());
+
+                lvPredictions.Items.Add(lstItem);
+            }
+        }
+
         private void ShowScoreCard()
         {
             // This allows the user to make his/her bet.
@@ -198,8 +229,8 @@ namespace ProjectFifaV2
                 Label lblHomeTeam = new Label();
                 Label lblAwayTeam = new Label();
 
-                NumericUpDown txtHomePred = new NumericUpDown();
-                NumericUpDown txtAwayPred = new NumericUpDown();
+                txtHomePred = new NumericUpDown();
+                txtAwayPred = new NumericUpDown();
 
                 lblHomeTeam.TextAlign = ContentAlignment.BottomRight;
                 lblHomeTeam.Text = dataRowHome["TeamName"].ToString();
@@ -326,10 +357,8 @@ namespace ProjectFifaV2
             int userId = resultId;
             int zero = 0;
 
-            string home = "1";
-            string away = "2";
-    
-            string sqlex = "INSERT INTO tblPredictions (PredictedHomeScore, PredictedAwayScore, User_id, Game_id  ) VALUES('" + home + "','" + away + "','" + userId+ "','" + Convert.ToInt32(zero) + "')";
+            string home = txtHomePred.Value.ToString();
+            string away = txtAwayPred.Value.ToString();
 
             this.counter--;
 
@@ -337,13 +366,14 @@ namespace ProjectFifaV2
             {
                 for (int k = 1; k < 2 ; k++)
                 {
-                    if (k == 0)
+                    if (k != 0)
                     {
                         home = rows[zero, k].Text;
+                        away = rows[zero, k].Text;
                     }
                     else
                     {
-                        away = rows[zero, k].Text;
+                        
                     }
                 }
                 string sql = "INSERT INTO tblPredictions (User_id, Game_id, PredictedHomeScore, PredictedAwayScore) VALUES ('" + userId + "', " + Convert.ToInt32(zero) + ", '" + home + "', '" + away + "')";
@@ -351,7 +381,9 @@ namespace ProjectFifaV2
                 dbh.CloseConnectionToDB();
                 dbh.Execute(sql);
             }
-            ShowResults();
+            ShowPredictions();
+
+            btnSaveButton.Enabled = false;
         }
     }
 }

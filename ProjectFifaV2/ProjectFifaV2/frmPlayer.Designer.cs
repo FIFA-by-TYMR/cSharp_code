@@ -40,14 +40,14 @@
             this.clmAwayTeamScore = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmAwayTeam = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlPredCard = new System.Windows.Forms.Panel();
-            this.SaveButton = new System.Windows.Forms.Button();
+            this.btnSaveButton = new System.Windows.Forms.Button();
             this.prediction_view = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lvPredictions = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -148,15 +148,15 @@
             this.pnlPredCard.Size = new System.Drawing.Size(346, 599);
             this.pnlPredCard.TabIndex = 8;
             // 
-            // SaveButton
+            // btnSaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(328, 36);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(106, 30);
-            this.SaveButton.TabIndex = 9;
-            this.SaveButton.Text = "Save Prediction";
-            this.SaveButton.UseVisualStyleBackColor = true;
-            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            this.btnSaveButton.Location = new System.Drawing.Point(328, 36);
+            this.btnSaveButton.Name = "btnSaveButton";
+            this.btnSaveButton.Size = new System.Drawing.Size(106, 30);
+            this.btnSaveButton.TabIndex = 9;
+            this.btnSaveButton.Text = "Save Prediction";
+            this.btnSaveButton.UseVisualStyleBackColor = true;
+            this.btnSaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // prediction_view
             // 
@@ -203,19 +203,19 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "Prediction Overview";
             // 
-            // listView1
+            // lvPredictions
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvPredictions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader5,
             this.columnHeader6,
             this.columnHeader7,
             this.columnHeader8});
-            this.listView1.Location = new System.Drawing.Point(12, 36);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(310, 600);
-            this.listView1.TabIndex = 10;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.lvPredictions.Location = new System.Drawing.Point(12, 36);
+            this.lvPredictions.Name = "lvPredictions";
+            this.lvPredictions.Size = new System.Drawing.Size(310, 600);
+            this.lvPredictions.TabIndex = 10;
+            this.lvPredictions.UseCompatibleStateImageBehavior = false;
+            this.lvPredictions.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader5
             // 
@@ -254,8 +254,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1133, 730);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.listView1);
-            this.Controls.Add(this.SaveButton);
+            this.Controls.Add(this.lvPredictions);
+            this.Controls.Add(this.btnSaveButton);
             this.Controls.Add(this.pnlPredCard);
             this.Controls.Add(this.lvOverview);
             this.Controls.Add(this.btnShowRanking);
@@ -285,14 +285,14 @@
         private System.Windows.Forms.ColumnHeader clmAwayTeamScore;
         private System.Windows.Forms.ColumnHeader clmAwayTeam;
         private System.Windows.Forms.Panel pnlPredCard;
-        private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button btnSaveButton;
         private System.Windows.Forms.ListView prediction_view;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView lvPredictions;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
