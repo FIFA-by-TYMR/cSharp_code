@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\YOUSSEF\DOCUMENTS\GITKRAKEN\CSHARP_CODE\PROJECTFIFAV2\PROJECTFIFAV2\DB.MDF.dbo.TblGames' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TblGames">
+    <Key>
+      <PropertyRef Name="Game_id" />
+      <PropertyRef Name="HomeTeam" />
+      <PropertyRef Name="AwayTeam" />
+    </Key>
+    <Property Name="Game_id" Type="int" Nullable="false" />
+    <Property Name="HomeTeam" Type="int" Nullable="false" />
+    <Property Name="AwayTeam" Type="int" Nullable="false" />
+    <Property Name="HomeTeamScore" Type="int" />
+    <Property Name="AwayTeamScore" Type="int" />
+  </EntityType>
+  <EntityType Name="TblPlayers">
+    <Key>
+      <PropertyRef Name="Player_id" />
+    </Key>
+    <Property Name="Player_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" Nullable="false" />
+    <Property Name="Surname" Type="varchar(max)" Nullable="false" />
+    <Property Name="GoalsScored" Type="int" Nullable="false" />
+    <Property Name="Team_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TblPredictions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User_id" Type="int" Nullable="false" />
+    <Property Name="Game_id" Type="int" Nullable="false" />
+    <Property Name="PredictedHomeScore" Type="varchar(max)" Nullable="false" />
+    <Property Name="PredictedAwayScore" Type="varchar(max)" Nullable="false" />
+    <Property Name="Saved" Type="bit" />
+  </EntityType>
+  <EntityType Name="TblTeams">
+    <Key>
+      <PropertyRef Name="Team_id" />
+    </Key>
+    <Property Name="Team_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Teamname" Type="varchar(max)" Nullable="false" />
+    <Property Name="poule_id" Type="int" Nullable="false" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="deleted_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TblUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsAdmin" Type="int" Nullable="false" />
+    <Property Name="Score" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="dbModelStoreContainer">
+    <EntitySet Name="TblPlayers" EntityType="Self.TblPlayers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblPredictions" EntityType="Self.TblPredictions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblTeams" EntityType="Self.TblTeams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblUsers" EntityType="Self.TblUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblGames" EntityType="Self.TblGames" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TblGames].[Game_id] AS [Game_id], 
+    [TblGames].[HomeTeam] AS [HomeTeam], 
+    [TblGames].[AwayTeam] AS [AwayTeam], 
+    [TblGames].[HomeTeamScore] AS [HomeTeamScore], 
+    [TblGames].[AwayTeamScore] AS [AwayTeamScore]
+    FROM [dbo].[TblGames] AS [TblGames]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TblPlayers">
+    <Key>
+      <PropertyRef Name="Player_id" />
+    </Key>
+    <Property Name="Player_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="GoalsScored" Type="Int32" Nullable="false" />
+    <Property Name="Team_id" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TblPredictions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_id" Type="Int32" Nullable="false" />
+    <Property Name="Game_id" Type="Int32" Nullable="false" />
+    <Property Name="PredictedHomeScore" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PredictedAwayScore" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Saved" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TblTeams">
+    <Key>
+      <PropertyRef Name="Team_id" />
+    </Key>
+    <Property Name="Team_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Teamname" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="poule_id" Type="Int32" Nullable="false" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="deleted_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TblUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsAdmin" Type="Int32" Nullable="false" />
+    <Property Name="Score" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TblGames">
+    <Key>
+      <PropertyRef Name="Game_id" />
+      <PropertyRef Name="HomeTeam" />
+      <PropertyRef Name="AwayTeam" />
+    </Key>
+    <Property Name="Game_id" Type="Int32" Nullable="false" />
+    <Property Name="HomeTeam" Type="Int32" Nullable="false" />
+    <Property Name="AwayTeam" Type="Int32" Nullable="false" />
+    <Property Name="HomeTeamScore" Type="Int32" />
+    <Property Name="AwayTeamScore" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TblPlayers" EntityType="Self.TblPlayers" />
+    <EntitySet Name="TblPredictions" EntityType="Self.TblPredictions" />
+    <EntitySet Name="TblTeams" EntityType="Self.TblTeams" />
+    <EntitySet Name="TblUsers" EntityType="Self.TblUsers" />
+    <EntitySet Name="TblGames" EntityType="Self.TblGames" />
+  </EntityContainer>
+</Schema>

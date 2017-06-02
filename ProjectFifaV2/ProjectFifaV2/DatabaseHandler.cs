@@ -59,15 +59,24 @@ namespace ProjectFifaV2
         public void OpenConnectionToDB()
         {
             // This opens the database connection.
-
+            if (con.State == ConnectionState.Open)
+            {
+            //    this.CloseConnectionToDB();
+                int i = 0;
+            }
             con.Open();
         }
 
         public void CloseConnectionToDB()
         {
             // This is closes the database connection.
-
+            
             con.Close();
+
+            if (con.State != ConnectionState.Closed)
+            {
+                int i = 0;
+            }
         }
 
         public System.Data.DataTable FillDT(string query)

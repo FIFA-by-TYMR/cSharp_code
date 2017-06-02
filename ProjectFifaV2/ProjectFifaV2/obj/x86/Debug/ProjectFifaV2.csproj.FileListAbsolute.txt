@@ -79,3 +79,7 @@ C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj
 C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj\x86\Debug\ProjectFifaV2.csproj.GenerateResource.Cache
 C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj\x86\Debug\ProjectFifaV2.exe
 C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj\x86\Debug\ProjectFifaV2.pdb
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\bin\Debug\EntityFramework.dll
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\bin\Debug\EntityFramework.xml
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\bin\Debug\EntityFramework.SqlServer.xml

@@ -50,7 +50,7 @@ namespace ProjectFifaV2
 
             dbh.OpenConnectionToDB();
 
-            DataTable table = dbh.FillDT("SELECT Username, Score FROM tblUsers WHERE (IsAdmin = 0) ORDER BY Score DESC");
+            DataTable table = dbh.FillDT("SELECT Username, Score FROM tblUsers WHERE (IsAdmin = 0 OR IsAdmin = 2) ORDER BY Score DESC");
 
             for (int i = 0; i < table.Rows.Count; i++)
             {

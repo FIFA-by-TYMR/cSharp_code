@@ -1,0 +1,13 @@
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\bin\Release\db.mdf
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\bin\Release\db_log.ldf
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\bin\Release\ProjectFifaV2.exe.config
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\bin\Release\ProjectFifaV2.exe
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\bin\Release\ProjectFifaV2.pdb
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj\x86\Release\ProjectFifaV2.frmAdmin.resources
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj\x86\Release\ProjectFifaV2.frmLogin.resources
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj\x86\Release\ProjectFifaV2.frmPlayer.resources
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj\x86\Release\ProjectFifaV2.frmRanking.resources
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj\x86\Release\ProjectFifaV2.Properties.Resources.resources
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj\x86\Release\ProjectFifaV2.csproj.GenerateResource.Cache
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj\x86\Release\ProjectFifaV2.exe
+C:\Users\Youssef\Documents\GitKraken\cSharp_code\ProjectFifaV2\ProjectFifaV2\obj\x86\Release\ProjectFifaV2.pdb

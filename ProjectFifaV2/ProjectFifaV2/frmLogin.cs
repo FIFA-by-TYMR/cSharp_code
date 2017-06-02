@@ -162,7 +162,7 @@ namespace ProjectFifaV2
                 }
                 else
                 {
-                    frmPlayer = new frmPlayer(frmRanking);
+                    frmPlayer = new frmPlayer(frmRanking, username);
                     frmPlayer.Show();
                 }
             }
