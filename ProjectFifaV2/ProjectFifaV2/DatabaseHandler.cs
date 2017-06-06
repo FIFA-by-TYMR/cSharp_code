@@ -59,11 +59,7 @@ namespace ProjectFifaV2
         public void OpenConnectionToDB()
         {
             // This opens the database connection.
-            if (con.State == ConnectionState.Open)
-            {
-            //    this.CloseConnectionToDB();
-                int i = 0;
-            }
+
             con.Open();
         }
 
@@ -72,11 +68,14 @@ namespace ProjectFifaV2
             // This is closes the database connection.
             
             con.Close();
+        }
 
-            if (con.State != ConnectionState.Closed)
-            {
-                int i = 0;
-            }
+
+        public SqlConnection GetCon()
+        {
+            // This a getter that gets the connection.
+
+            return con;
         }
 
         public System.Data.DataTable FillDT(string query)
@@ -94,6 +93,8 @@ namespace ProjectFifaV2
 
             return dt;
         }
+
+
         public int DTInt(string query)
         {
             // This returns an int from the database.
@@ -111,12 +112,6 @@ namespace ProjectFifaV2
             return ret;
         }
 
-        public SqlConnection GetCon()
-        {
-            // This a getter that gets the connection.
-
-            return con;
-        }
         public void Execute(string query)
         {
             // This executes the query and returns a message if its passed/failed.
@@ -126,38 +121,21 @@ namespace ProjectFifaV2
 
             try
             {
+                TestConnection();
                 OpenConnectionToDB();
+
                 queryExecute.Prepare();
                 queryExecute.ExecuteReader();
-                MessageBox.Show("Success saving to database");
+
+                MessageBox.Show("Saving succesvol!");
+
                 CloseConnectionToDB();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Error");
+
                 CloseConnectionToDB();
-            }
-        }
-
-        public int ExecuteInt(string query)
-        {
-            // This executes the query and returns an int, if its failed it returns a message.
-
-            SqlCommand queryExecute = new SqlCommand(query, con);
-            MessageBox.Show(query);
-
-            try
-            {
-                OpenConnectionToDB();
-
-                int amountOfRows = queryExecute.ExecuteNonQuery();
-                return amountOfRows;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Error");
-                CloseConnectionToDB();
-                return 0;
             }
         }
         public void ExecuteAdmin(string query)
@@ -167,9 +145,12 @@ namespace ProjectFifaV2
 
             try
             {
+                TestConnection();
                 OpenConnectionToDB();
+
                 queryExecute.Prepare();
                 queryExecute.ExecuteNonQuery();
+
                 CloseConnectionToDB();
             }
             catch (Exception ex)

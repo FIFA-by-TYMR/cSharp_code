@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPlayer));
-            this.btnEditPrediction = new System.Windows.Forms.Button();
             this.btnClearPrediction = new System.Windows.Forms.Button();
             this.btnLogOut = new System.Windows.Forms.Button();
             this.lblResultsOverview = new System.Windows.Forms.Label();
@@ -55,19 +54,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // btnEditPrediction
-            // 
-            this.btnEditPrediction.Location = new System.Drawing.Point(452, 36);
-            this.btnEditPrediction.Name = "btnEditPrediction";
-            this.btnEditPrediction.Size = new System.Drawing.Size(106, 30);
-            this.btnEditPrediction.TabIndex = 1;
-            this.btnEditPrediction.Text = "Edit Prediction";
-            this.btnEditPrediction.UseVisualStyleBackColor = true;
-            this.btnEditPrediction.Click += new System.EventHandler(this.btnEditPrediction_Click);
-            // 
             // btnClearPrediction
             // 
-            this.btnClearPrediction.Location = new System.Drawing.Point(574, 36);
+            this.btnClearPrediction.Location = new System.Drawing.Point(513, 36);
             this.btnClearPrediction.Name = "btnClearPrediction";
             this.btnClearPrediction.Size = new System.Drawing.Size(106, 30);
             this.btnClearPrediction.TabIndex = 2;
@@ -262,7 +251,6 @@
             this.Controls.Add(this.lblResultsOverview);
             this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.btnClearPrediction);
-            this.Controls.Add(this.btnEditPrediction);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmPlayer";
@@ -274,7 +262,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnEditPrediction;
         private System.Windows.Forms.Button btnClearPrediction;
         private System.Windows.Forms.Button btnLogOut;
         private System.Windows.Forms.Label lblResultsOverview;

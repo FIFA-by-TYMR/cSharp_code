@@ -48,6 +48,7 @@ namespace ProjectFifaV2
         {
             // This shows the scores per username.
 
+            dbh.TestConnection();
             dbh.OpenConnectionToDB();
 
             DataTable table = dbh.FillDT("SELECT Username, Score FROM tblUsers WHERE (IsAdmin = 0 OR IsAdmin = 2) ORDER BY Score DESC");

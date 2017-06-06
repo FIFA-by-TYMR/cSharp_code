@@ -38,7 +38,6 @@
             this.btnAdminLogOut = new System.Windows.Forms.Button();
             this.rb_Teams = new System.Windows.Forms.RadioButton();
             this.rb_Games = new System.Windows.Forms.RadioButton();
-            this.rb_players = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdminData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -130,23 +129,11 @@
             this.rb_Games.Text = "Games";
             this.rb_Games.UseVisualStyleBackColor = true;
             // 
-            // rb_players
-            // 
-            this.rb_players.AutoSize = true;
-            this.rb_players.Location = new System.Drawing.Point(178, 59);
-            this.rb_players.Name = "rb_players";
-            this.rb_players.Size = new System.Drawing.Size(59, 17);
-            this.rb_players.TabIndex = 11;
-            this.rb_players.TabStop = true;
-            this.rb_players.Text = "Players";
-            this.rb_players.UseVisualStyleBackColor = true;
-            // 
             // frmAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(959, 512);
-            this.Controls.Add(this.rb_players);
             this.Controls.Add(this.rb_Games);
             this.Controls.Add(this.rb_Teams);
             this.Controls.Add(this.btnAdminLogOut);
@@ -177,6 +164,5 @@
         private System.Windows.Forms.Button btnAdminLogOut;
         private System.Windows.Forms.RadioButton rb_Teams;
         private System.Windows.Forms.RadioButton rb_Games;
-        private System.Windows.Forms.RadioButton rb_players;
     }
 }
