@@ -40,7 +40,8 @@ namespace ProjectFifaV2
         public NumericUpDown txtHomePred;
         public NumericUpDown txtAwayPred;
 
-        NumericUpDown[,] rows;
+        NumericUpDown[] row;
+        NumericUpDown[] row1;
 
 
         public frmPlayer(Form frm, string un)
@@ -49,11 +50,13 @@ namespace ProjectFifaV2
 
             int amount = dbh.DTInt("SELECT COUNT(*) FROM TblGames");
 
-            rows = new NumericUpDown[amount, lengthInnerArray];
+            row = new NumericUpDown[amount-1];
+            row1 = new NumericUpDown[amount-1];
 
             this.ControlBox = false;
 
             frmRanking = frm;
+            this.counter--;
 
             dbh = new DatabaseHandler();
 
@@ -66,13 +69,7 @@ namespace ProjectFifaV2
                 btnClearPrediction.Enabled = false;
                 btnSaveButton.Enabled = false;
             }
-
-            ShowResults();
-            ShowScoreCard();
-            ShowPredictions();
-
             this.Text = un;
-
             // Checks if some preditions already has been saved.
 
             DataTable tblUsers = dbh.FillDT("SELECT * FROM TblUsers WHERE (Username='" + this.Text + "')");
@@ -107,6 +104,12 @@ namespace ProjectFifaV2
             {
                 btnClearPrediction.Enabled = false;
             }
+
+            ShowResults();
+            ShowScoreCard();
+            ShowPredictions(userId);
+
+
         }
 
         private void btnLogOut_Click(object sender, EventArgs e)
@@ -163,24 +166,26 @@ namespace ProjectFifaV2
 
                 for (; zero < lengthOutterArray; zero++)
                 {
-                    for (int k = 0; k < lengthInnerArray; k++)
-                    {
-                        if (k == 0)
-                        {
-                            home = rows[zero, k].Text;
-                        }
-                        else
-                        {
-                            away = rows[zero, k].Text;
-                        }
-                    }
+                    home = row[zero].Text;
+                    away = row1[zero].Text;
+                    //    for (int k = 0; k < lengthInnerArray; k++)
+                    //    {
+                    //        if (k% 2 == 0)
+                    //        {
+                    //            
+                    //        }
+                    //        else
+                    //        {
+                    //          
+                    //        }
+                    //    }
                 }
 
-                dbh.Execute(sqlStr);
+                    dbh.Execute(sqlStr);
 
                 lvPredictions.Items.Clear();
 
-                ShowPredictions();
+                ShowPredictions(userId);
 
                 dbh.TestConnection();
                 dbh.OpenConnectionToDB();
@@ -265,18 +270,32 @@ namespace ProjectFifaV2
             }
         }
 
-        private void ShowPredictions()
+        private void ShowPredictions(int un)
         {
             // This shows your predition result.
+
+            DataTable tblUsers = dbh.FillDT("SELECT * FROM tblUsers WHERE (Username='" + this.Text + "')");
 
             dbh.TestConnection();
             dbh.OpenConnectionToDB();
 
-            DataTable homeTable = dbh.FillDT("SELECT TblTeams.TeamName, TblPredictions.PredictedHomeScore FROM TblPredictions, TblGames INNER JOIN TblTeams ON TblGames.HomeTeam = TblTeams.Team_ID");
-            DataTable awayTable = dbh.FillDT("SELECT TblTeams.TeamName, TblPredictions.PredictedAwayScore FROM TblPredictions, TblGames INNER JOIN TblTeams ON TblGames.AwayTeam = TblTeams.Team_ID");
+            using (SqlCommand cmd = new SqlCommand("SELECT id FROM TblUsers WHERE Username =  @Username", dbh.GetCon()))
+            {
+                cmd.Parameters.AddWithValue("Username", this.Text);
+
+                string sqlStr = Convert.ToString(cmd.ExecuteScalar());
+
+                int.TryParse(sqlStr, out this.resultId);
+            }
+
+            int userId = resultId;
+
+            DataTable homeTable = dbh.FillDT("SELECT TblTeams.TeamName, TblPredictions.PredictedHomeScore FROM TblPredictions, TblGames INNER JOIN TblTeams ON TblGames.HomeTeam = TblTeams.Team_ID WHERE User_id = '"+ userId +"'");
+            DataTable awayTable = dbh.FillDT("SELECT TblTeams.TeamName, TblPredictions.PredictedAwayScore FROM TblPredictions, TblGames INNER JOIN TblTeams ON TblGames.AwayTeam = TblTeams.Team_ID WHERE User_id = '" + userId + "'");
 
             dbh.CloseConnectionToDB();
-            int r = dbh.DTInt("SELECT COUNT(Game_id)FROM TBLGAMES"); 
+
+            int r = dbh.DTInt(" SELECT COUNT(Game_id) FROM TBLGAMES "); 
 
             for (int i = 0; i < homeTable.Rows.Count; i++)
             {
@@ -293,33 +312,6 @@ namespace ProjectFifaV2
 
                     lvPredictions.Items.Add(lstItem);
                 }
-                
-
-               
-                //     lvPredictions.Update();
-                //  //   dbh.CloseConnectionToDB();
-                //     dbh.OpenConnectionToDB();       
-
-                //     DataTable homeTable = dbh.FillDT("SELECT * FROM TblPredictions INNER JOIN TblGames ON TblPredictions.Game_id = TblGames.Game_id");
-                //     DataTable awayTable = dbh.FillDT("SELECT * FROM TblPredictions INNER JOIN TblGames ON TblPredictions.Game_id = TblGames.Game_id");
-                //     //DataTable t1 = dbh.FillDT("SELECT TblTeams.TeamName FROM TblGames INNER JOIN TblTeams ON TblGames.AwayTeam = TblTeams.Team_ID");
-
-                //     dbh.CloseConnectionToDB();
-
-                //     for (int i = 0; i < homeTable.Rows.Count; i++)
-                //     {
-                //         DataRow dataRowHome = homeTable.Rows[i];
-                //         DataRow dataRowAway = awayTable.Rows[i];
-
-                //         ListViewItem lstItem = new ListViewItem(dataRowHome["Game_id"].ToString());
-
-                //         lstItem.SubItems.Add(dataRowHome["HomeTeamScore"].ToString());
-                //         lstItem.SubItems.Add(dataRowAway["AwayTeamScore"].ToString());
-                //         lstItem.SubItems.Add(dataRowAway["Game_id"].ToString());
-
-                //         lvPredictions.Items.Add(lstItem);
-                //     }
-                ////     dbh.CloseConnectionToDB();
             }
         }
 
@@ -346,15 +338,17 @@ namespace ProjectFifaV2
                 lblHomeTeam.Location = new Point(15, txtHomePred.Bottom + (i * 30));
                 lblHomeTeam.AutoSize = true;
 
+                txtAwayPred.Text = "0";
                 txtHomePred.Text = "0";
                 txtHomePred.Location = new Point(lblHomeTeam.Width, lblHomeTeam.Top - 3);
                 txtHomePred.Width = 40;
-                rows[i, 0] = txtHomePred;
+                row[i] = txtHomePred;
 
-                txtAwayPred.Text = "0";
-                txtAwayPred.Location = new Point(txtHomePred.Width + lblHomeTeam.Width, txtHomePred.Top);
+                //txtAwayPred.Text = "0";
+                //new Point(txtHomePred.Width + lblHomeTeam.Width, txtHomePred.Top);
+                //txtAwayPred.Location = new Point(txtHomePred.Width + lblHomeTeam.Width, txtHomePred.Top);
                 txtAwayPred.Width = 40;
-                rows[i, 1] = txtAwayPred;
+                row1[i] = txtAwayPred;
 
                 lblAwayTeam.Text = dataRowAway["TeamName"].ToString();
                 lblAwayTeam.Location = new Point(txtHomePred.Width + lblHomeTeam.Width + txtAwayPred.Width, txtHomePred.Top + 3);
@@ -436,8 +430,6 @@ namespace ProjectFifaV2
                 string home = txtHomePred.Value.ToString();
                 string away = txtAwayPred.Value.ToString();
 
-                this.counter--;
-
                 if (counter < 0)
                 {
                     counter = 0;
@@ -445,28 +437,17 @@ namespace ProjectFifaV2
 
                 for (; zero <= this.counter; zero++)
                 {
-                    for (int k = 0; k < 2; k++)
-                    {
-                        if (k == 0)
-                        {
-                            home = rows[zero, k].Text;
 
-                        }
-                        else
-                        {
-                            int f = k - 1;
-                            k++;
-                            away = rows[zero, f].Text;
-                            f = 0;
-                        }
-                    }
+                            home = row[zero].Text;
+                            away = row1[zero].Text;
+
                     string sql = "INSERT INTO tblPredictions (User_id, Game_id, PredictedHomeScore, PredictedAwayScore, Saved) VALUES ('" + userId + "', " + Convert.ToInt32(zero) + ", '" + home + "', '" + away + "', '1')";
 
                     dbh.Execute(sql);
                 }
 
                 btnSaveButton.Enabled = false;
-                ShowPredictions();
+                ShowPredictions(userId);
 
                 // Making sure that the predictions will stay in the database.
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
+using System.IO;
 
 namespace ProjectFifaV2
 {
@@ -223,6 +224,14 @@ namespace ProjectFifaV2
                 MessageHandler.ShowMessage("Wrong username and/or password.");
             }
             dbh.CloseConnectionToDB();
+        }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+                string script = File.ReadAllText("../../sql/points1.sql");
+                string script1 = File.ReadAllText("../../sql/SQLQuery0.sql");
+                dbh.Execute(script);
+                dbh.Execute(script1);
         }
     }
 }

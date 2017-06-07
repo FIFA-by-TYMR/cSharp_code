@@ -127,9 +127,9 @@ namespace ProjectFifaV2
                 string dropTableTeams = "DROP TABLE TblTeams ";
                 string createTableTeams =
                     "CREATE TABLE TblTeams(" +
-                    "    id             INT NOT NULL," +
+                    "    Team_id             INT NOT NULL," +
                     "    poule_id      INT NULL," +
-                    "    name     VARCHAR(255)  NULL," +
+                    "    Teamname     VARCHAR(255)  NULL," +
                     "    created_at   VARCHAR(255) NULL," +
                     "    deleted_at   VARCHAR(255) NULL," +
                     ");";
@@ -163,20 +163,17 @@ namespace ProjectFifaV2
             if ((txtPath.Text != null && rb_Games.Checked == true))
             {
                 string dropTableGames = "DROP TABLE TblGames ";
-                string createTableGames =
-                    "CREATE TABLE TblGames(" +
-                    "    id             INT NOT NULL," +
-                    "    team_id_a     VARCHAR(255) NULL," +
-                    "    team_id_b     VARCHAR(255) NULL," +
-                    "    score_team_a     VARCHAR(255)  NULL," +
-                    "    score_team_b     VARCHAR(255)  NULL," +
-                    "    score_team_b     VARCHAR(255)  NULL," +
-                    "    start_time   VARCHAR(255) NULL," +
-                    ");";
+                string createTableGames = "CREATE TABLE TblGames" +
+                "(" +
+                    "Game_id VARCHAR(255) NOT NULL," +
+                    "HomeTeam VARCHAR(255) NOT NULL," +
+                    "AwayTeam VARCHAR(255) NOT NULL," +
+                    "HomeTeamScore VARCHAR(255) NULL," +
+                    "AwayTeamScore VARCHAR(255) NULL" +
+                ");";
 
                 string insertTableGames = "BULK INSERT TblGames" +
-               " FROM '" + txtPath.Text + "'" +
-                "WITH" +
+               " FROM '" + txtPath.Text + "'" + "WITH" +
                 "(" +
                    " FIRSTROW = 2," +
                    " FIELDTERMINATOR = ',', " +
