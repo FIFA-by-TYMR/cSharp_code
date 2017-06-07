@@ -28,7 +28,7 @@ namespace ProjectFifaV2
 
             InitializeComponent();
 
-            // This disables a couple of buttons and/or text boxes to be sure that an exception won't happen.
+            // This disables a button and/or text boxes to be sure that an exception won't happen.
 
             btnLoadData.Enabled = false;
         }
@@ -55,20 +55,9 @@ namespace ProjectFifaV2
 
             Hide();
         }
-
-        private void btnExecute_Click(object sender, EventArgs e)
-        {
-            // This sets the char length for the execute button.
-
-            if (txtQuery.TextLength > 8)
-            {
-                ExecuteSQL(txtQuery.Text);
-            }
-        }
-
         private void ExecuteSQL(string selectCommandText)
         {
-            // This executes the query and sets it in the database.
+            // This executes the query and sets it in the datatable.
 
             SqlDataAdapter dataAdapter = new SqlDataAdapter(selectCommandText, dbh.GetCon());
 
@@ -97,129 +86,7 @@ namespace ProjectFifaV2
             {
                 // This shows a message if the file isn't a CSV file.
 
-                MessageHandler.ShowMessage("The wrong filetype is selected.");
-            }
-        }
-
-        private void btnLoadData_Click(object sender, EventArgs e)
-        {
-            // This disables a couple of buttons and/or text boxes to be sure that an exception won't happen.
-
-            btnExecute.Enabled = true;
-            btnLoadData.Enabled = false;
-            btnSelectFile.Enabled = false;
-
-            txtQuery.Enabled = true;
-            txtPath.Enabled = false;
-
-            // This is letting us to load in a CSV file.
-
-            if ((txtPath.Text != null && rb_Teams.Checked == true))
-            {
-                string drop = "DROP TABLE TblTeams ";
-                string create =
-                    "CREATE TABLE TblTeams(" +
-                    "    id             INT NOT NULL," +
-                    "    poule_id      INT NULL," +
-                    "    name     VARCHAR(255)  NULL," +
-                    "    created_at   VARCHAR(255) NULL," +
-                    "    deleted_at   VARCHAR(255) NULL," +
-                    ");";
-
-                string insert = "BULK INSERT TblTeams" +
-               " FROM '"+txtPath.Text+"'" +
-                "WITH" +
-                "(" +
-                   " FIRSTROW = 2," +
-                   " FIELDTERMINATOR = ',', " +
-                   " ROWTERMINATOR = '\n', " +
-                   " TABLOCK" +
-                ");";
-
-                ExecuteSQL(drop);
-
-                dbh.ExecuteAdmin(create);
-                dbh.ExecuteAdmin(insert);
-            }
-            else
-            {
-                // This shows a message if nothing is selected.
-
-                MessageHandler.ShowMessage("No filename selected.");
-            }
-
-            if ((txtPath.Text != null && rb_players.Checked == true))
-            {
-                string drop1 = "DROP TABLE TblPLayers ";
-                string create1 =
-                    "CREATE TABLE TblPlayers(" +
-                    "    id             INT NOT NULL," +
-                    "    student_id     VARCHAR(255) NULL," +
-                    "    Team_id      INT NULL," +
-                    "    first_name     VARCHAR(255)  NULL," +
-                    "    last_name     VARCHAR(255)  NULL," +
-                    "    created_at   VARCHAR(255) NULL," +
-                    "    deleted_at   VARCHAR(255) NULL," +
-                    ");";
-
-                string insert1 = "BULK INSERT TblPlayers" +
-               " FROM '" + txtPath.Text + "'" +
-                "WITH" +
-                "(" +
-                   " FIRSTROW = 2," +
-                   " FIELDTERMINATOR = ',', " +
-                   " ROWTERMINATOR = '\n', " +
-                   " TABLOCK" +
-                ");";
-
-                ExecuteSQL(drop1);
-
-                dbh.ExecuteAdmin(create1);
-                dbh.ExecuteAdmin(insert1);
-            }
-            else
-            {
-                // This shows a message if nothing is selected.
-
-                MessageHandler.ShowMessage("No filename selected.");
-            }
-
-            if ((txtPath.Text != null && rb_Games.Checked == true))
-            {
-                string drop2 = "DROP TABLE TblGames ";
-                string create2 =
-                    "CREATE TABLE TblGames(" +
-                    "    id             INT NOT NULL," +
-                    "    team_id_a     VARCHAR(255) NULL," +
-                    "    team_id_b     VARCHAR(255) NULL," +
-                    "    score_team_a     VARCHAR(255)  NULL," +
-                    "    score_team_b     VARCHAR(255)  NULL," +
-                    "    score_team_b     VARCHAR(255)  NULL," +
-                    "    start_time   VARCHAR(255) NULL," +
-                    ");";
-
-                string insert2 = "BULK INSERT TblGames" +
-               " FROM '" + txtPath.Text + "'" +
-                "WITH" +
-                "(" +
-                   " FIRSTROW = 2," +
-                   " FIELDTERMINATOR = ',', " +
-                   " ROWTERMINATOR = '\n', " +
-                   " TABLOCK" +
-                ");";
-
-                ExecuteSQL(drop2);
-
-                dbh.ExecuteAdmin(create2);
-                dbh.ExecuteAdmin(insert2);
-
-                dbh.CloseConnectionToDB();
-            }
-            else
-            {
-                // This shows a message if nothing is selected.
-
-                MessageHandler.ShowMessage("No filename selected.");
+                MessageHandler.ShowMessage("Nothing selected or the wrong filetype has been selected.");
             }
         }
 
@@ -238,6 +105,108 @@ namespace ProjectFifaV2
             }
 
             return filePath;
+        }
+
+        private void btnLoadData_Click(object sender, EventArgs e)
+        {
+            // This disables a couple of buttons and/or text boxes to be sure that an exception won't happen.
+
+            btnExecute.Enabled = true;
+            btnLoadData.Enabled = false;
+            btnSelectFile.Enabled = false;
+
+            txtQuery.Enabled = true;
+            txtPath.Enabled = false;
+
+            // This is letting us to load in a CSV file.
+
+            // TblTeams:
+
+            if ((txtPath.Text != null && rb_Teams.Checked == true))
+            {
+                string dropTableTeams = "DROP TABLE TblTeams ";
+                string createTableTeams =
+                    "CREATE TABLE TblTeams(" +
+                    "    id             INT NOT NULL," +
+                    "    poule_id      INT NULL," +
+                    "    name     VARCHAR(255)  NULL," +
+                    "    created_at   VARCHAR(255) NULL," +
+                    "    deleted_at   VARCHAR(255) NULL," +
+                    ");";
+
+                string insertTableTeams = "BULK INSERT TblTeams" +
+               " FROM '" + txtPath.Text + "'" +
+                "WITH" +
+                "(" +
+                   " FIRSTROW = 2," +
+                   " FIELDTERMINATOR = ',', " +
+                   " ROWTERMINATOR = '\n', " +
+                   " TABLOCK" +
+                ");";
+
+                dbh.TestConnection();
+
+                ExecuteSQL(dropTableTeams);
+
+                dbh.ExecuteAdmin(createTableTeams);
+                dbh.ExecuteAdmin(insertTableTeams);
+            }
+            else
+            {
+                // This shows a message if nothing is selected.
+
+                MessageHandler.ShowMessage("No filename selected.");
+            }
+
+            // TblGames:
+
+            if ((txtPath.Text != null && rb_Games.Checked == true))
+            {
+                string dropTableGames = "DROP TABLE TblGames ";
+                string createTableGames =
+                    "CREATE TABLE TblGames(" +
+                    "    id             INT NOT NULL," +
+                    "    team_id_a     VARCHAR(255) NULL," +
+                    "    team_id_b     VARCHAR(255) NULL," +
+                    "    score_team_a     VARCHAR(255)  NULL," +
+                    "    score_team_b     VARCHAR(255)  NULL," +
+                    "    score_team_b     VARCHAR(255)  NULL," +
+                    "    start_time   VARCHAR(255) NULL," +
+                    ");";
+
+                string insertTableGames = "BULK INSERT TblGames" +
+               " FROM '" + txtPath.Text + "'" +
+                "WITH" +
+                "(" +
+                   " FIRSTROW = 2," +
+                   " FIELDTERMINATOR = ',', " +
+                   " ROWTERMINATOR = '\n', " +
+                   " TABLOCK" +
+                ");";
+
+                dbh.TestConnection();
+
+                ExecuteSQL(dropTableGames);
+
+                dbh.ExecuteAdmin(createTableGames);
+                dbh.ExecuteAdmin(insertTableGames);
+            }
+            else
+            {
+                // This shows a message if nothing is selected.
+
+                MessageHandler.ShowMessage("No filename selected.");
+            }
+        }
+
+        private void btnExecute_Click(object sender, EventArgs e)
+        {
+            // This sets the char length for the execute button.
+
+            if (txtQuery.TextLength > 8)
+            {
+                ExecuteSQL(txtQuery.Text);
+            }
         }
 
         private bool CheckExtension(string fileString, string extension)

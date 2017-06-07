@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
 
 namespace ProjectFifaV2
 {
@@ -17,6 +18,8 @@ namespace ProjectFifaV2
         private Form frmAdmin;
         private Form frmPlayer;
         private Form frmRanking;
+
+        internal string gettingHashedPassword;
 
         public frmLogin()
         {
@@ -30,6 +33,31 @@ namespace ProjectFifaV2
             frmRanking = new frmRanking();
         }
 
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            // Gives the option to quit the application.
+
+            DialogResult result = MessageBox.Show("Are you sure you want to quit?", "Quit", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+            if (result.Equals(DialogResult.Yes))
+            {
+                if (dbh.GetCon().State == ConnectionState.Open)
+                {
+                    dbh.CloseConnectionToDB();
+                }
+
+                Application.Exit();
+            }
+        }
+
+        private void btnShowRanking_Click(object sender, EventArgs e)
+        {
+            // Shows the scores from all users.
+
+            frmRanking.Show();
+        }
+
+
         private void btnRegister_Click(object sender, EventArgs e)
         {
             // This is letting the user to make an account.
@@ -42,6 +70,9 @@ namespace ProjectFifaV2
             }
             else
             {
+                // Making sure that the username doesn't exists in the database.
+
+                dbh.TestConnection();
                 dbh.OpenConnectionToDB();
 
                 bool exist = false;
@@ -62,8 +93,10 @@ namespace ProjectFifaV2
                 else
                 {
                     // This is Elton's secret account.
+
                     string user = txtUsername.Text.ToLower();
-                    if (user == "ninja")
+
+                    if (user == "Ninja")
                     {
                         dbh.CloseConnectionToDB();
 
@@ -73,58 +106,68 @@ namespace ProjectFifaV2
                         int admin = 2;
                         int score = 0;
 
-                        string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + userName + "', '" + password + "', '" + admin + "', '" + score + "')";
+                        // Preparing array to initialize later.
+                        byte[] salt;
+                        new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+
+                        // The hashing formula is executed 10000 times just to be sure that the security level is high.
+                        Rfc2898DeriveBytes passwordToHash = new Rfc2898DeriveBytes(password, salt, 10000);
+                        byte[] hashArray = passwordToHash.GetBytes(20);
+
+                        // Copys the value of an byte array and paste them in an other array.
+                        byte[] hashBytes = new byte[36];
+                        Array.Copy(salt, 0, hashBytes, 0, 16);
+                        Array.Copy(hashArray, 0, hashBytes, 16, 20);
+
+                        // Converting hashed password to a string
+                        string savedPasswordHash = Convert.ToBase64String(hashBytes);
+
+                        string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + userName + "', '" + savedPasswordHash + "', '" + admin + "', '" + score + "')";
                         
                         dbh.Execute(sql);
                     }
                     else
                     {
+                        // Password hashing for registering.
+
                         dbh.CloseConnectionToDB();
 
                         string password = txtPassword.Text;
                         string userName = txtUsername.Text;
 
+                        // Preparing array to initialize later.
+                        byte[] salt;
+                        new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+
+                        // The hashing formula is executed 10000 times just to be sure that the security level is high.
+                        Rfc2898DeriveBytes passwordToHash = new Rfc2898DeriveBytes(password, salt, 10000);
+                        byte[] hashArray = passwordToHash.GetBytes(20);
+
+                        // Copys the value of an byte array and paste them in an other array.
+                        byte[] hashBytes = new byte[36];
+                        Array.Copy(salt, 0, hashBytes, 0, 16);
+                        Array.Copy(hashArray, 0, hashBytes, 16, 20);
+
+                        // Converting hashed password to a string
+                        string savedPasswordHash = Convert.ToBase64String(hashBytes);
+
                         int admin = 0;
                         int score = 0;
 
-                        string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + userName + "', '" + password + "', '" + admin + "', '" + score + "')";
+                        string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + userName + "', '" + savedPasswordHash + "', '" + admin + "', '" + score + "')";
 
                         dbh.Execute(sql);
                     }
                 }
-
                 dbh.CloseConnectionToDB();
             }
-        }
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            // Gives the option to quit the application.
-
-            DialogResult result = MessageBox.Show("Are you sure you want to quit?", "Quit", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-
-            if (result.Equals(DialogResult.OK))
-            {
-                if (dbh.GetCon().State == ConnectionState.Open)
-                {
-                    dbh.CloseConnectionToDB();
-                }
-
-                Application.Exit();
-            }
-        }
-
-        private void btnShowRanking_Click(object sender, EventArgs e)
-        {
-            // Shows the scores from all users.
-
-            frmRanking.Show();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
             // This is letting the user to log in and go towards the form where he/she belongs.
 
+            dbh.TestConnection();
             dbh.OpenConnectionToDB();
 
             bool exist = false;
@@ -132,13 +175,20 @@ namespace ProjectFifaV2
             string username = txtUsername.Text;
             string password = txtPassword.Text;
 
-            txtUsername.Text = "";
-            txtPassword.Text = "";
+            // Getting hashed password from database.
 
+            using (SqlCommand cmd = new SqlCommand("SELECT Password FROM TblUsers WHERE Username =  @Username", dbh.GetCon()))
+            {
+                cmd.Parameters.AddWithValue("Username", username);
+
+                this.gettingHashedPassword = Convert.ToString(cmd.ExecuteScalar());
+            }
+
+            // Comparing password from user input and saved password in database.
             using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [tblUsers] WHERE Username = @Username AND Password = @Password", dbh.GetCon()))
             {
                 cmd.Parameters.AddWithValue("Username", username);
-                cmd.Parameters.AddWithValue("Password", password);
+                cmd.Parameters.AddWithValue("Password", this.gettingHashedPassword);
 
                 exist = (int)cmd.ExecuteScalar() > 0;
             }
@@ -162,7 +212,7 @@ namespace ProjectFifaV2
                 }
                 else
                 {
-                    frmPlayer = new frmPlayer(frmRanking);
+                    frmPlayer = new frmPlayer(frmRanking, username);
                     frmPlayer.Show();
                 }
             }
@@ -170,10 +220,9 @@ namespace ProjectFifaV2
             {
                 // This shows a message if the username and or password is wrong.
 
-                dbh.CloseConnectionToDB();
-
                 MessageHandler.ShowMessage("Wrong username and/or password.");
             }
+            dbh.CloseConnectionToDB();
         }
     }
 }

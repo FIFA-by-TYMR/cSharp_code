@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbModelStoreContainer" CdmEntityContainer="dbEntities">
+    <EntitySetMapping Name="TblPlayers">
+      <EntityTypeMapping TypeName="dbModel.TblPlayers">
+        <MappingFragment StoreEntitySet="TblPlayers">
+          <ScalarProperty Name="Player_id" ColumnName="Player_id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="GoalsScored" ColumnName="GoalsScored" />
+          <ScalarProperty Name="Team_id" ColumnName="Team_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblPredictions">
+      <EntityTypeMapping TypeName="dbModel.TblPredictions">
+        <MappingFragment StoreEntitySet="TblPredictions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Game_id" ColumnName="Game_id" />
+          <ScalarProperty Name="PredictedHomeScore" ColumnName="PredictedHomeScore" />
+          <ScalarProperty Name="PredictedAwayScore" ColumnName="PredictedAwayScore" />
+          <ScalarProperty Name="Saved" ColumnName="Saved" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblTeams">
+      <EntityTypeMapping TypeName="dbModel.TblTeams">
+        <MappingFragment StoreEntitySet="TblTeams">
+          <ScalarProperty Name="Team_id" ColumnName="Team_id" />
+          <ScalarProperty Name="Teamname" ColumnName="Teamname" />
+          <ScalarProperty Name="poule_id" ColumnName="poule_id" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblUsers">
+      <EntityTypeMapping TypeName="dbModel.TblUsers">
+        <MappingFragment StoreEntitySet="TblUsers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblGames">
+      <EntityTypeMapping TypeName="dbModel.TblGames">
+        <MappingFragment StoreEntitySet="TblGames">
+          <ScalarProperty Name="Game_id" ColumnName="Game_id" />
+          <ScalarProperty Name="HomeTeam" ColumnName="HomeTeam" />
+          <ScalarProperty Name="AwayTeam" ColumnName="AwayTeam" />
+          <ScalarProperty Name="HomeTeamScore" ColumnName="HomeTeamScore" />
+          <ScalarProperty Name="AwayTeamScore" ColumnName="AwayTeamScore" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
