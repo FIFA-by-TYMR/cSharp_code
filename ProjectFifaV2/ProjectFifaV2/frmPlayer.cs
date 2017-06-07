@@ -73,7 +73,7 @@ namespace ProjectFifaV2
 
             this.Text = un;
 
-            // Checks if some preditions has been saved.
+            // Checks if some preditions already has been saved.
 
             DataTable tblUsers = dbh.FillDT("SELECT * FROM TblUsers WHERE (Username='" + this.Text + "')");
 
@@ -276,19 +276,26 @@ namespace ProjectFifaV2
             DataTable awayTable = dbh.FillDT("SELECT TblTeams.TeamName, TblPredictions.PredictedAwayScore FROM TblPredictions, TblGames INNER JOIN TblTeams ON TblGames.AwayTeam = TblTeams.Team_ID");
 
             dbh.CloseConnectionToDB();
+            int r = dbh.DTInt("SELECT COUNT(Game_id)FROM TBLGAMES"); 
 
             for (int i = 0; i < homeTable.Rows.Count; i++)
             {
-                DataRow dataRowHome = homeTable.Rows[i];
-                DataRow dataRowAway = awayTable.Rows[i];
+                //i++;
+                if (i %  r == 0)
+                {
+                    DataRow dataRowHome = homeTable.Rows[i];
+                    DataRow dataRowAway = awayTable.Rows[i];
+                    ListViewItem lstItem = new ListViewItem(dataRowHome["Teamname"].ToString());
 
-                ListViewItem lstItem = new ListViewItem(dataRowHome["Teamname"].ToString());
+                    lstItem.SubItems.Add(dataRowHome["PredictedHomeScore"].ToString());
+                    lstItem.SubItems.Add(dataRowAway["PredictedAwayScore"].ToString());
+                    lstItem.SubItems.Add(dataRowAway["Teamname"].ToString());
 
-                lstItem.SubItems.Add(dataRowHome["PredictedHomeScore"].ToString());
-                lstItem.SubItems.Add(dataRowAway["PredictedAwayScore"].ToString());
-                lstItem.SubItems.Add(dataRowAway["Teamname"].ToString());
+                    lvPredictions.Items.Add(lstItem);
+                }
+                
 
-                lvPredictions.Items.Add(lstItem);
+               
                 //     lvPredictions.Update();
                 //  //   dbh.CloseConnectionToDB();
                 //     dbh.OpenConnectionToDB();       
