@@ -117,7 +117,6 @@ namespace ProjectFifaV2
             // This executes the query and returns a message if its passed/failed.
 
             SqlCommand queryExecute = new SqlCommand(query, con);
-            MessageBox.Show(query);
 
             try
             {
@@ -126,8 +125,6 @@ namespace ProjectFifaV2
 
                 queryExecute.Prepare();
                 queryExecute.ExecuteReader();
-
-                MessageBox.Show("Saving succesvol!");
 
                 CloseConnectionToDB();
             }
@@ -138,10 +135,12 @@ namespace ProjectFifaV2
                 CloseConnectionToDB();
             }
         }
+
         public void ExecuteAdmin(string query)
         {
+            // executes a query and shows the game under result overview.
+
             SqlCommand queryExecute = new SqlCommand(query, con);
-            MessageBox.Show(query);
 
             try
             {
@@ -150,6 +149,7 @@ namespace ProjectFifaV2
 
                 queryExecute.Prepare();
                 queryExecute.ExecuteNonQuery();
+              
 
                 CloseConnectionToDB();
             }

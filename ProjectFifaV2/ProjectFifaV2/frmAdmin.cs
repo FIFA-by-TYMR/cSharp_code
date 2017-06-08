@@ -46,9 +46,9 @@ namespace ProjectFifaV2
 
             btnSelectFile.Enabled = true;
             btnLoadData.Enabled = false;
-            btnExecute.Enabled = false;
+            btnExecute.Enabled = true;
 
-            txtQuery.Enabled = false;
+            txtQuery.Enabled = true;
             txtPath.Enabled = true;
 
             // This hides the form.
@@ -167,7 +167,7 @@ namespace ProjectFifaV2
                 "(" +
                     "Game_id VARCHAR(255) NOT NULL," +
                     "HomeTeam VARCHAR(255) NOT NULL," +
-                    "AwayTeam VARCHAR(255) NOT NULL," +
+                     "AwayTeam VARCHAR(255) NOT NULL," +
                     "HomeTeamScore VARCHAR(255) NULL," +
                     "AwayTeamScore VARCHAR(255) NULL" +
                 ");";
