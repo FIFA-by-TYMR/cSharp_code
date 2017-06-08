@@ -282,10 +282,14 @@ namespace ProjectFifaV2
             dbh.CloseConnectionToDB();
             dbh.TestConnection();
             dbh.OpenConnectionToDB();
-            
-            DataTable homeTable = dbh.FillDT(File.ReadAllText("../../sql/SQLDataTable1.sql"));
-            DataTable awayTable = dbh.FillDT(File.ReadAllText("../../sql/SQLDataTable.sql"));
 
+            string query = "DECLARE @jojo TABLE(TeamName varchar(8000), PredictedHomeScore varchar(8000), batman integer); DECLARE @i  integer, @stop integer; set @i = 0; set @stop = (select count(*) from TblGames) WHILE @i < @stop Begin insert into @jojo (TeamName, PredictedHomeScore) values((SELECT  TblTeams.TeamName FROM  TblGames left join TblTeams ON TblGames.HomeTeam = TblTeams.Team_ID where Game_id = @i), (select TblPredictions.PredictedHomeScore from TblPredictions WHERE Game_id = @i and  User_id = '" + userId + "' )) ; set @i = @i + 1; END select* from  @jojo";
+            string query1 = "DECLARE @jojo TABLE(TeamName varchar(8000), PredictedAwayScore varchar(8000), batman integer); DECLARE @i integer, @stop integer; set @i = 0; set @stop = (select count(*) from TblGames) WHILE @i < @stop Begin insert into @jojo (TeamName, PredictedawayScore) values((SELECT  TblTeams.TeamName FROM  TblGames left join TblTeams ON TblGames.AwayTeam = TblTeams.Team_ID where Game_id = @i), (select TblPredictions.PredictedAwayScore from TblPredictions WHERE Game_id = @i and  User_id = '" + userId + "' )) ; set @i = @i + 1; END select* from  @jojo";
+
+            DataTable homeTable = dbh.FillDT(query);
+            DataTable awayTable = dbh.FillDT(query1);
+
+           
             for (int i = 0; i < homeTable.Rows.Count; i++)
             {
                 DataRow dataRowHome = homeTable.Rows[i];
