@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
+using System.IO;
 
 namespace ProjectFifaV2
 {
@@ -107,21 +108,24 @@ namespace ProjectFifaV2
                         int score = 0;
 
                         // Preparing array to initialize later.
+
                         byte[] salt;
                         new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
 
                         // The hashing formula is executed 10000 times just to be sure that the security level is high.
+
                         Rfc2898DeriveBytes passwordToHash = new Rfc2898DeriveBytes(password, salt, 10000);
                         byte[] hashArray = passwordToHash.GetBytes(20);
 
                         // Copys the value of an byte array and paste them in an other array.
+
                         byte[] hashBytes = new byte[36];
                         Array.Copy(salt, 0, hashBytes, 0, 16);
                         Array.Copy(hashArray, 0, hashBytes, 16, 20);
 
-                        // Converting hashed password to a string
-                        string savedPasswordHash = Convert.ToBase64String(hashBytes);
+                        // Converting hashed password to a string.
 
+                        string savedPasswordHash = Convert.ToBase64String(hashBytes);
                         string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + userName + "', '" + savedPasswordHash + "', '" + admin + "', '" + score + "')";
                         
                         dbh.Execute(sql);
@@ -136,24 +140,27 @@ namespace ProjectFifaV2
                         string userName = txtUsername.Text;
 
                         // Preparing array to initialize later.
+
                         byte[] salt;
                         new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
 
                         // The hashing formula is executed 10000 times just to be sure that the security level is high.
+
                         Rfc2898DeriveBytes passwordToHash = new Rfc2898DeriveBytes(password, salt, 10000);
                         byte[] hashArray = passwordToHash.GetBytes(20);
 
                         // Copys the value of an byte array and paste them in an other array.
+
                         byte[] hashBytes = new byte[36];
                         Array.Copy(salt, 0, hashBytes, 0, 16);
                         Array.Copy(hashArray, 0, hashBytes, 16, 20);
 
-                        // Converting hashed password to a string
-                        string savedPasswordHash = Convert.ToBase64String(hashBytes);
+                        // Converting hashed password to a string.
 
                         int admin = 0;
                         int score = 0;
 
+                        string savedPasswordHash = Convert.ToBase64String(hashBytes);
                         string sql = "INSERT INTO [tblUsers] ([Username], [Password], [IsAdmin], [Score]) VALUES ('" + userName + "', '" + savedPasswordHash + "', '" + admin + "', '" + score + "')";
 
                         dbh.Execute(sql);
@@ -185,6 +192,7 @@ namespace ProjectFifaV2
             }
 
             // Comparing password from user input and saved password in database.
+
             using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [tblUsers] WHERE Username = @Username AND Password = @Password", dbh.GetCon()))
             {
                 cmd.Parameters.AddWithValue("Username", username);
@@ -223,6 +231,45 @@ namespace ProjectFifaV2
                 MessageHandler.ShowMessage("Wrong username and/or password.");
             }
             dbh.CloseConnectionToDB();
+        }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+            // Collects predictions from database and displays them.
+
+            string queryCount = "SELECT COUNT(Game_id) FROM TblGames";
+            string countId = "SELECT COUNT(id) FROM TblPredictions";
+            string querymin = "SELECT MIN(id) FROM TblPredictions";
+
+            int countGame = dbh.DTInt(queryCount);
+            int countPred = dbh.DTInt(countId);
+            int minPred = dbh.DTInt(querymin);
+
+            int[] arrayCountGame = new int[countGame * 4];
+            int[] arrayCountGame1 = new int[countGame * 4];
+
+            for (int i = 0; i < countGame; i++)
+            {
+                string querySelectHome = "SELECT HomeTeamScore FROM TblGames WHERE Game_id = '" + i + "'";
+                string querySelectAway = "SELECT AwayTeamScore FROM TblGames WHERE Game_id = '" + i + "'";
+
+                int HomeTeamScore = dbh.DTInt(querySelectHome);
+                int AwayTeamScore = dbh.DTInt(querySelectAway);
+
+                int trueId = i + minPred;
+
+                string querySelect = "SELECT User_id FROM TblPredictions WHERE id = '" + trueId + "' and PredictedAwayScore = '" + AwayTeamScore + "' or PredictedHomeScore = '" + HomeTeamScore + "'";
+
+                arrayCountGame[i] = dbh.DTInt(querySelect);
+
+                string queryScore = "SELECT Score FROM TblUsers WHERE id = '" + arrayCountGame[i] + "'";
+
+                arrayCountGame1[i] = dbh.DTInt(queryScore) + 2;
+
+                string queryUpdate = "UPDATE TblUsers SET Score = '" + arrayCountGame[i] + "' WHERE id = '" + arrayCountGame[i] + "'";
+
+                dbh.Execute(queryUpdate);
+            }
         }
     }
 }

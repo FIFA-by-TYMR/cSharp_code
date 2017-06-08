@@ -160,6 +160,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>db.mdf</DependentUpon>
     </Content>
+    <Content Include="sql\points1.sql" />
+    <Content Include="sql\SQLDataTable.sql" />
+    <Content Include="sql\SQLDataTable1.sql" />
+    <Content Include="sql\SQLQuery0.sql" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
